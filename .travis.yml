@@ -2,5 +2,8 @@ dist: xenial
 language: java
 jdk:
   - openjdk15
+
+script: "mvn "
+
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -t env(CODECOV_TOKEN)
