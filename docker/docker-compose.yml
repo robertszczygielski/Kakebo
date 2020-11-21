@@ -1,0 +1,13 @@
+version: '3.2'
+
+services:
+  postgress:
+    image: postgres:13
+    container_name: postgresql_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: kakebouser
+      POSTGRES_PASSWORD: Su9erK4k3boPa55w0rd
+      POSTGRES_DB: kakebo_main_db
+
