@@ -1,0 +1,24 @@
+codecov:
+  token: "<some token here>"
+  bot: "codecov-io"
+  ci:
+    - "travis.com"
+  strict_yaml_branch: "yaml-config"
+  max_report_age: 24
+  disable_default_path_fixes: no
+  require_ci_to_pass: yes
+  notify:
+    after_n_builds: 2
+    wait_for_ci: yes
+
+coverage:
+  precision: 2  # 2 = xx.xx%, 0 = xx%
+  round: nearest # how coverage is rounded: down/up/nearest
+  range: 10...90 # custom range of coverage colors from red -> yellow -> green
+status:
+  project:
+    default:
+      against: auto
+      target: 60% # specify the target coverage for each commit status
+      threshold: 30% # allow this little decrease on project
+      if_ci_failed: error
