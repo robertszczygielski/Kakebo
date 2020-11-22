@@ -1,24 +1,27 @@
 package pl.dicedev.kakebo.controllers;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.dicedev.kakebo.services.AssetService;
+import pl.dicedev.kakebo.services.dtos.AssetDto;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("asset/")
-@Slf4j
+@AllArgsConstructor
 public class AssetController {
 
-    private String asset;
+    private final AssetService assetService;
 
     @PostMapping("set")
-    public void setInitAsset(@RequestBody String asset) {
-        log.info("add in asset controller {}", asset);
-        this.asset = asset;
+    public UUID setInitAsset(@RequestBody AssetDto asset) {
+        return assetService.save(asset);
     }
 
-    @GetMapping("get")
-    public String getInitAsset() {
-        return asset;
+    @GetMapping("get/{id}")
+    public AssetDto getInitAsset(@PathVariable("id") UUID id) {
+        return assetService.findById(id);
     }
 
 }
