@@ -1,5 +1,6 @@
 package pl.dicedev.kakebo.repositories.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 

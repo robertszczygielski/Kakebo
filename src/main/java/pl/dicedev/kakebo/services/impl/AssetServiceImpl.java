@@ -2,7 +2,6 @@ package pl.dicedev.kakebo.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
