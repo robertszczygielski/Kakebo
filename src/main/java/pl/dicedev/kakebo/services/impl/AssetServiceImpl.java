@@ -9,6 +9,7 @@ import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
 import java.util.UUID;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -35,5 +36,14 @@ public class AssetServiceImpl implements AssetService {
         log.info("Find: {}", entity);
 
         return assetMapper.formEntityToDto(entity);
+    }
+
+    @Override
+    public AssetDto findFirst() {
+        var assetEntities = assetRepository.findAll();
+        var assetEntity = StreamSupport.stream(assetEntities.spliterator(), false)
+                .findFirst()
+                .orElse(null);
+        return assetMapper.formEntityToDto(assetEntity);
     }
 }

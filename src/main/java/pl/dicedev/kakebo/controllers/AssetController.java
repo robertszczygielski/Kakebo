@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("asset/")
+@CrossOrigin(origins = "http://localhost:3000")
 @AllArgsConstructor
 public class AssetController {
 
@@ -22,6 +23,11 @@ public class AssetController {
     @GetMapping("get/{id}")
     public AssetDto getInitAsset(@PathVariable("id") UUID id) {
         return assetService.findById(id);
+    }
+
+    @GetMapping("get")
+    public AssetDto getOne() {
+        return assetService.findFirst();
     }
 
 }

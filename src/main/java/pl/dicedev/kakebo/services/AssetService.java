@@ -10,4 +10,6 @@ public interface AssetService {
 
     AssetDto findById(UUID id);
 
+    AssetDto findFirst();
+
 }
