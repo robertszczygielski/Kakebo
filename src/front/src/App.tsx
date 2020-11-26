@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {getAllAssets} from "./assets/api/AssetApi";
+import React, { useEffect, useState } from 'react';
+import { getAllAssets } from "./assets/api/AssetApi";
 
 interface IAsset {
     id: string;
@@ -7,6 +7,7 @@ interface IAsset {
 }
 
 const App: React.FC = () => {
+    const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
 
     useEffect(() => {
         findAllAssets();
@@ -14,13 +15,18 @@ const App: React.FC = () => {
 
     const findAllAssets = () => {
         getAllAssets().then((data: any) => {
-                console.dir(data)
-            })
+            const assets: Array<IAsset | null> = data;
+            setAssets(assets);
+        })
     }
 
     return (
         <div>
-            <p>Hello</p>
+            <ul>
+                {assets?.map(asset => (
+                    <li key={asset?.id}>{asset?.amount}</li>
+                ))}
+            </ul>
         </div>
     );
 }

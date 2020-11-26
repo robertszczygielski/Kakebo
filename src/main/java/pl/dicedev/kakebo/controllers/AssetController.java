@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("asset/")
-@CrossOrigin(origins = "http://localhost:3000")
 @AllArgsConstructor
 public class AssetController {
 
@@ -26,8 +26,8 @@ public class AssetController {
     }
 
     @GetMapping("get")
-    public AssetDto getOne() {
-        return assetService.findFirst();
+    public List<AssetDto> getAll() {
+        return assetService.findAll();
     }
 
 }

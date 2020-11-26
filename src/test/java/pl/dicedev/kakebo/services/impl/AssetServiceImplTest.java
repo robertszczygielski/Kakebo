@@ -14,7 +14,10 @@ import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -29,13 +32,6 @@ class AssetServiceImplTest {
 
     @BeforeEach
     public void init() {
-        AssetEntity entity = new AssetEntity();
-        entity.setId(UUID.randomUUID());
-        AssetEntity entityFromDto = new AssetEntity();
-        entityFromDto.setAmount(BigDecimal.ONE);
-
-        Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
-
         assetMapper = new AssetMapperImpl();
         assetService = new AssetServiceImpl(assetRepository, assetMapper);
     }
@@ -45,6 +41,13 @@ class AssetServiceImplTest {
         // given
         AssetDto dto = new AssetDto();
         dto.setAmount(BigDecimal.ONE);
+        AssetEntity entity = new AssetEntity();
+        entity.setId(UUID.randomUUID());
+        AssetEntity entityFromDto = new AssetEntity();
+        entityFromDto.setAmount(BigDecimal.ONE);
+
+        Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
+
 
         // when
         var result = assetService.save(dto);
@@ -52,5 +55,32 @@ class AssetServiceImplTest {
         // then
         assertThat(result).isNotNull();
 
+    }
+
+    @Test
+    void shouldReturnAllAssetsWhoWasMappedFromEntityToDto() {
+        // given
+        int numberOfAssets = 3;
+        List<AssetEntity> assetEntities = prepareAssetEntities(numberOfAssets);
+        Mockito.when(assetRepository.findAll()).thenReturn(assetEntities);
+
+        // when
+        var result = assetService.findAll();
+
+        // then
+        assertThat(result.size()).isEqualTo(numberOfAssets);
+
+
+    }
+
+    private List<AssetEntity> prepareAssetEntities(int numberOfAssets) {
+        return IntStream.range(0, numberOfAssets)
+                .mapToObj(it -> {
+                    var assetEntity = new AssetEntity();
+                    assetEntity.setAmount(new BigDecimal(it));
+                    assetEntity.setId(UUID.randomUUID());
+                    return assetEntity;
+                })
+                .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package pl.dicedev.kakebo.services;
 
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AssetService {
@@ -10,6 +11,6 @@ public interface AssetService {
 
     AssetDto findById(UUID id);
 
-    AssetDto findFirst();
+    List<AssetDto> findAll();
 
 }
