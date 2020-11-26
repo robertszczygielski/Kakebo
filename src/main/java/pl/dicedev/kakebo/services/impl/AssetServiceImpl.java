@@ -8,6 +8,7 @@ import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,7 +22,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public UUID save(AssetDto assetDto) {
         log.info("Save Asset: {}", assetDto);
-        var entity = assetMapper.formDtoToEntity(assetDto);
+        var entity = assetMapper.fromDtoToEntity(assetDto);
         var saved = assetRepository.save(entity);
         log.info("Saved Asset: {}", saved);
 
@@ -34,6 +35,12 @@ public class AssetServiceImpl implements AssetService {
         var entity = assetRepository.findById(id).orElse(null);
         log.info("Find: {}", entity);
 
-        return assetMapper.formEntityToDto(entity);
+        return assetMapper.fromEntityToDto(entity);
+    }
+
+    @Override
+    public List<AssetDto> findAll() {
+        log.info("Fina all assets");
+        return assetMapper.fromEntityToDto(assetRepository.findAll());
     }
 }
