@@ -15,6 +15,7 @@ import pl.dicedev.kakebo.services.dtos.AssetDto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -55,6 +56,36 @@ class AssetServiceImplTest {
         // then
         assertThat(result).isNotNull();
 
+    }
+
+    @Test
+    void shouldReturnNullIfEntityIsNotFound() {
+        // given
+        UUID id = UUID.randomUUID();
+        Mockito.when(assetRepository.findById(id)).thenReturn(Optional.empty());
+
+        // when
+        var result = assetService.findById(id);
+
+        // then
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void shouldReturnAssetIfEntityIsFound() {
+        // given
+        UUID id = UUID.randomUUID();
+        var asset = new AssetEntity();
+        asset.setId(id);
+        asset.setAmount(BigDecimal.TEN);
+        Mockito.when(assetRepository.findById(id)).thenReturn(Optional.of(asset));
+
+        // when
+        var result = assetService.findById(id);
+
+        // then
+        assertThat(result.getId()).isEqualTo(id);
+        assertThat(result.getAmount()).isEqualTo(BigDecimal.TEN);
     }
 
     @Test
