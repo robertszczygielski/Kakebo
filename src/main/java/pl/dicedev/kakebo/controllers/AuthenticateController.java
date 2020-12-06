@@ -10,6 +10,7 @@ import pl.dicedev.kakebo.security.UserService;
 import pl.dicedev.kakebo.security.dto.AuthResponse;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -26,7 +27,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/createUser")
-    public UUID createUser(@RequestBody AuthUserDto authUserDto) {
+    public UUID createUser(@Valid @RequestBody AuthUserDto authUserDto) {
         return userService.saveUser(authUserDto);
     }
 
