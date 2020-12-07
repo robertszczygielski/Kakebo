@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.security.dto.AuthResponse;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.security.exceptions.BadKakeboCredentialsException;
 import pl.dicedev.kakebo.security.util.JWTUtil;
 
 @Service
@@ -26,7 +27,7 @@ public class AuthenticationService {
                     authUserDto.getUsername(), authUserDto.getPassword()
             ));
         } catch (BadCredentialsException e) {
-            throw new RuntimeException("Incorrect password or user", e);
+            throw new BadKakeboCredentialsException();
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authUserDto.getUsername());
