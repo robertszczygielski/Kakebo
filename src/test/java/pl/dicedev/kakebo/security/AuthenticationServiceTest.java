@@ -20,6 +20,7 @@ import pl.dicedev.kakebo.security.util.JWTUtil;
 import java.util.Collections;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.INCORRECT_USER_OR_PASSWORD;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
@@ -78,7 +79,7 @@ class AuthenticationServiceTest {
 
         );
         //then
-        assertThat(badKakeboCredentialsException.getMessage()).isEqualTo("User password or login are incorrect");
+        assertThat(badKakeboCredentialsException.getMessage()).isEqualTo(INCORRECT_USER_OR_PASSWORD);
 
     }
 }

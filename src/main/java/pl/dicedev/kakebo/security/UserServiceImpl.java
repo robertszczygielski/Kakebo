@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID saveUser(AuthUserDto authUserDto) {
+        log.info("dto user = {}", authUserDto);
         var userEntity = userMapper.fromDtoToEntity(authUserDto);
         log.info("user: {}", userEntity);
         var userEntityAfterSave = userDetailsRepository.save(userEntity);
