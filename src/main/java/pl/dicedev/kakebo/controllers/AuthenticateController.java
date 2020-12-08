@@ -32,6 +32,11 @@ public class AuthenticateController {
         return userService.saveUser(authUserDto);
     }
 
+    @DeleteMapping("/deleteUser")
+    public void deleteUser(@Valid @RequestBody AuthUserDto authUserDto) {
+        userService.deleteUser(authUserDto);
+    }
+
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public KakeboErrorDto handleException(MethodArgumentNotValidException exception) {

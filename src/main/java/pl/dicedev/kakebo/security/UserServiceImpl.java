@@ -25,4 +25,15 @@ public class UserServiceImpl implements UserService {
         var userEntityAfterSave = userDetailsRepository.save(userEntity);
         return userEntityAfterSave.getId();
     }
+
+    @Override
+    public void deleteUser(AuthUserDto authUserDto) {
+        var userEntity = userDetailsRepository.findById(authUserDto.getId());
+        if (userEntity.isPresent() && authUserDto.getUsername().equals(userEntity.get().getUsername())) {
+            userDetailsRepository.delete(userEntity.get());
+            log.info("user deleted successfully, {}", authUserDto.getUsername());
+        } else {
+            log.info("user do not exist; id:{}, username: {}", authUserDto.getId(), authUserDto.getUsername());
+        }
+    }
 }

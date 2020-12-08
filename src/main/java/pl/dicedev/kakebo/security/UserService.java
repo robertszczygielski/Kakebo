@@ -8,4 +8,5 @@ public interface UserService {
 
     UUID saveUser(AuthUserDto authUserDto);
 
+    void deleteUser(AuthUserDto authUserDto);
 }
