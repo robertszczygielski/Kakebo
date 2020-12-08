@@ -1,7 +1,6 @@
 package pl.dicedev.kakebo.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,12 +19,12 @@ public class AuthenticationService {
     private final KakeboUserDetailsService userDetailsService;
     private final JWTUtil jwtUtil;
 
-
     public AuthResponse authenticateUser(AuthUserDto authUserDto) throws RuntimeException {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     authUserDto.getUsername(), authUserDto.getPassword()
-            ));
+            );
+            authenticationManager.authenticate(authentication);
         } catch (BadCredentialsException e) {
             throw new BadKakeboCredentialsException();
         }

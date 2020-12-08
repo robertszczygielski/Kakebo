@@ -14,7 +14,8 @@ public abstract class UserMapper {
     private final String SALT = "$2a$06$rECVOz6Vt9ALftZLmFM63.";
 
     @Mappings({
-            @Mapping(source = "password", target = "password", qualifiedByName = "hashPasswd")
+            @Mapping(source = "password", target = "password", qualifiedByName = "hashPasswd"),
+            @Mapping(source = "username", target = "username")
     })
     public abstract UserEntity fromDtoToEntity(AuthUserDto authUserDto);
 

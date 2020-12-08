@@ -17,7 +17,12 @@ public class KakeboUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        userDetailsRepository.findAll();
-        return new User("admin", "admin", Collections.emptyList());
+        var userEntity = userDetailsRepository.findByUsername(userName);
+        if (userEntity.isPresent()) {
+            var ue = userEntity.get();
+            return new User(ue.getUsername(), ue.getPassword(), Collections.emptyList());
+        } else {
+            return new User("NN", "NN", Collections.emptyList());
+        }
     }
 }

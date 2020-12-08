@@ -20,6 +20,7 @@ import pl.dicedev.kakebo.security.util.JWTUtil;
 import java.util.Collections;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.INCORRECT_USER_OR_PASSWORD;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
@@ -47,7 +48,7 @@ class AuthenticationServiceTest {
         String expectedTokenHeader = "eyJhbGciOiJIUzI1NiJ9";
         String username = "user";
         String password = "passwd";
-        AuthUserDto authUserDto = new AuthUserDto(username, password);
+        AuthUserDto authUserDto = new AuthUserDto(null, username, password);
         UserDetails userDetails = new User(username, password, Collections.emptyList());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
@@ -68,7 +69,7 @@ class AuthenticationServiceTest {
         // given
         String username = "user";
         String password = "bad_passwd";
-        AuthUserDto authUserDto = new AuthUserDto(username, password);
+        AuthUserDto authUserDto = new AuthUserDto(null, username, password);
         Authentication auth = new UsernamePasswordAuthenticationToken(username, password);
         Mockito.when(authenticationManager.authenticate(auth)).thenThrow(BadCredentialsException.class);
 
@@ -78,7 +79,7 @@ class AuthenticationServiceTest {
 
         );
         //then
-        assertThat(badKakeboCredentialsException.getMessage()).isEqualTo("User password or login are incorrect");
+        assertThat(badKakeboCredentialsException.getMessage()).isEqualTo(INCORRECT_USER_OR_PASSWORD);
 
     }
 }
