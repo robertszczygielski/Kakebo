@@ -31,13 +31,11 @@ class AuthenticationServiceTest {
     @Mock
     private KakeboUserDetailsService userDetailsService;
 
-    private JWTUtil jwtUtil;
-
     private AuthenticationService authenticationService;
 
     @BeforeEach
     public void setup() {
-        jwtUtil = new JWTUtil();
+        JWTUtil jwtUtil = new JWTUtil();
 
         authenticationService = new AuthenticationService(authenticationManager, userDetailsService, jwtUtil);
     }

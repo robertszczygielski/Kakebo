@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.mapper.UserMapper;
 
 import java.util.UUID;
@@ -19,11 +20,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID saveUser(AuthUserDto authUserDto) {
-        log.info("dto user = {}", authUserDto);
-        var userEntity = userMapper.fromDtoToEntity(authUserDto);
-        log.info("user: {}", userEntity);
-        var userEntityAfterSave = userDetailsRepository.save(userEntity);
-        return userEntityAfterSave.getId();
+        var userInDataBase = userDetailsRepository.findByUsername(authUserDto.getUsername());
+        if (userInDataBase.isEmpty()) {
+            var userEntity = userMapper.fromDtoToEntity(authUserDto);
+            log.info("user: {}", userEntity);
+            var userEntityAfterSave = userDetailsRepository.save(userEntity);
+            return userEntityAfterSave.getId();
+        } else {
+            throw new UserAlreadyExistException();
+        }
     }
 
     @Override
