@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10122020
+      author: robertszczygielski
+      changes:
+        - addColumn:
+            tableName: asset
+            columns:
+              - column:
+                  name: userId
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_in_asset
+                    references: users(id)

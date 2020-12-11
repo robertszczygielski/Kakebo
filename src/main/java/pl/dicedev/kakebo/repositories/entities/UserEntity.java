@@ -1,4 +1,4 @@
-package pl.dicedev.kakebo.security.entity;
+package pl.dicedev.kakebo.repositories.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
