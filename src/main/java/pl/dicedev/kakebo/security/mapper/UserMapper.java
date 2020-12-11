@@ -5,8 +5,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
-import pl.dicedev.kakebo.security.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
