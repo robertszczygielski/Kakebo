@@ -1,7 +1,6 @@
 package pl.dicedev.kakebo.security.bto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +9,9 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class UserBto implements UserDetails {
 
@@ -21,9 +23,13 @@ public class UserBto implements UserDetails {
     private UUID id;
     @NotNull
     private Collection<? extends GrantedAuthority> authorities;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+    @Builder.Default
+    private boolean accountNonExpired = true;
+    @Builder.Default
+    private boolean accountNonLocked = true;
+    @Builder.Default
+    private boolean credentialsNonExpired = true;
+    @Builder.Default
+    private boolean enabled = true;
 
 }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.security.bto.UserBto;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -43,8 +44,9 @@ public class JWTUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserBto userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userDetails.getId());
         return createToken(claims, userDetails.getUsername());
     }
 
