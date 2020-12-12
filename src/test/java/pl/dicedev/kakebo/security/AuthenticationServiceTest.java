@@ -13,11 +13,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
 import pl.dicedev.kakebo.security.exceptions.BadKakeboCredentialsException;
 import pl.dicedev.kakebo.security.util.JWTUtil;
 
 import java.util.Collections;
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.INCORRECT_USER_OR_PASSWORD;
@@ -43,11 +45,18 @@ class AuthenticationServiceTest {
     @Test
     void shouldReturnTokenWhenUserAndPasswordMatch() {
         // given
-        String expectedTokenHeader = "eyJhbGciOiJIUzI1NiJ9";
-        String username = "user";
-        String password = "passwd";
-        AuthUserDto authUserDto = new AuthUserDto(null, username, password);
-        UserDetails userDetails = new User(username, password, Collections.emptyList());
+        var expectedTokenHeader = "eyJhbGciOiJIUzI1NiJ9";
+        var username = "user";
+        var password = "passwd";
+        var id = UUID.randomUUID();
+        var authUserDto = new AuthUserDto(null, username, password);
+        var userDetails = UserBto.builder()
+                .username(username)
+                .password(password)
+                .authorities(Collections.emptyList())
+                .id(id)
+                .build();
+        ;
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
         Mockito.when(authenticationManager.authenticate(authenticationToken)).thenReturn(authenticationToken);
@@ -57,7 +66,7 @@ class AuthenticationServiceTest {
         var result = authenticationService.authenticateUser(authUserDto);
 
         // then
-        String resultHeader = result.getJwtToken().substring(0, 20);
+        var resultHeader = result.getJwtToken().substring(0, 20);
         assertThat(resultHeader).isEqualTo(expectedTokenHeader);
 
     }
@@ -65,10 +74,10 @@ class AuthenticationServiceTest {
     @Test
     void shouldThrowBadKakeboCredentialsExceptionWhenAuthenticationFails() {
         // given
-        String username = "user";
-        String password = "bad_passwd";
-        AuthUserDto authUserDto = new AuthUserDto(null, username, password);
-        Authentication auth = new UsernamePasswordAuthenticationToken(username, password);
+        var username = "user";
+        var password = "bad_passwd";
+        var authUserDto = new AuthUserDto(null, username, password);
+        var auth = new UsernamePasswordAuthenticationToken(username, password);
         Mockito.when(authenticationManager.authenticate(auth)).thenThrow(BadCredentialsException.class);
 
         // when

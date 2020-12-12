@@ -21,5 +21,7 @@ public class AssetEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
     private BigDecimal amount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserEntity user;
 
 }
