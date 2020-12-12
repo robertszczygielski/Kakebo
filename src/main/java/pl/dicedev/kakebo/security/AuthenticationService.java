@@ -29,8 +29,8 @@ public class AuthenticationService {
             throw new BadKakeboCredentialsException();
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authUserDto.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
+        final var userDetails = userDetailsService.loadUserByUsername(authUserDto.getUsername());
+        final var jwt = jwtUtil.generateToken(userDetails);
 
         return new AuthResponse(jwt);
 

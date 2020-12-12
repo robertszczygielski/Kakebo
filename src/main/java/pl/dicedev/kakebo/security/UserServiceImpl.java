@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
     private final UserDetailsRepository userDetailsRepository;
     private final UserMapper userMapper;
 
-
     @Override
     public UUID saveUser(AuthUserDto authUserDto) {
         var userInDataBase = userDetailsRepository.findByUsername(authUserDto.getUsername());
