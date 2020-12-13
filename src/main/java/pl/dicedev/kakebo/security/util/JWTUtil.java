@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.security.bto.UserBto;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,11 +17,6 @@ public class JWTUtil {
 
     private final String KEY = "some_random_secret";
     private final Integer EXPIRY_TIME = 60 * 60 * 24 * 2000;
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaim(token);
-        return claimsResolver.apply(claims);
-    }
 
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -35,6 +31,11 @@ public class JWTUtil {
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaim(token);
+        return claimsResolver.apply(claims);
+    }
+
     private Claims extractAllClaim(String token) {
         return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
     }
@@ -43,8 +44,9 @@ public class JWTUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserBto userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userDetails.getId());
         return createToken(claims, userDetails.getUsername());
     }
 

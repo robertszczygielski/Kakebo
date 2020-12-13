@@ -6,10 +6,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.mappers.AssetMapperImpl;
 import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.repositories.entities.AssetEntity;
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
+import pl.dicedev.kakebo.security.UserDetailsRepository;
+import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
@@ -21,34 +27,49 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class AssetServiceImplTest {
 
     private AssetService assetService;
-    private AssetMapper assetMapper;
 
     @Mock
     private AssetRepository assetRepository;
+    @Mock
+    private UserDetailsRepository userDetailsRepository;
 
     @BeforeEach
     public void init() {
-        assetMapper = new AssetMapperImpl();
-        assetService = new AssetServiceImpl(assetRepository, assetMapper);
+        AssetMapper assetMapper = new AssetMapperImpl();
+        assetService = new AssetServiceImpl(assetRepository, userDetailsRepository, assetMapper);
     }
 
     @Test
     void shouldCallSave() {
         // given
-        AssetDto dto = new AssetDto();
+        var userId = UUID.randomUUID();
+        var userBto = UserBto.builder().id(userId).build();
+        var dto = new AssetDto();
+        var entity = new AssetEntity();
+        var entityFromDto = new AssetEntity();
+        var  userEntity = new UserEntity();
+
         dto.setAmount(BigDecimal.ONE);
-        AssetEntity entity = new AssetEntity();
-        entity.setId(UUID.randomUUID());
-        AssetEntity entityFromDto = new AssetEntity();
         entityFromDto.setAmount(BigDecimal.ONE);
+        entityFromDto.setUser(userEntity);
+        userEntity.setId(userId);
+        entity.setId(UUID.randomUUID());
+        entity.setUser(userEntity);
+
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(userBto);
 
         Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
-
+        Mockito.when(userDetailsRepository.findById(userId)).thenReturn(Optional.of(userEntity));
 
         // when
         var result = assetService.save(dto);
@@ -61,7 +82,7 @@ class AssetServiceImplTest {
     @Test
     void shouldReturnNullIfEntityIsNotFound() {
         // given
-        UUID id = UUID.randomUUID();
+        var id = UUID.randomUUID();
         Mockito.when(assetRepository.findById(id)).thenReturn(Optional.empty());
 
         // when
@@ -74,7 +95,7 @@ class AssetServiceImplTest {
     @Test
     void shouldReturnAssetIfEntityIsFound() {
         // given
-        UUID id = UUID.randomUUID();
+        var id = UUID.randomUUID();
         var asset = new AssetEntity();
         asset.setId(id);
         asset.setAmount(BigDecimal.TEN);
@@ -91,7 +112,7 @@ class AssetServiceImplTest {
     @Test
     void shouldReturnAllAssetsWhoWasMappedFromEntityToDto() {
         // given
-        int numberOfAssets = 3;
+        var numberOfAssets = 3;
         List<AssetEntity> assetEntities = prepareAssetEntities(numberOfAssets);
         Mockito.when(assetRepository.findAll()).thenReturn(assetEntities);
 

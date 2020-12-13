@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: asset
             columns:
               - column:
-                  name: userId
+                  name: user_id
                   type: uuid
                   constraints:
                     nullable: false
