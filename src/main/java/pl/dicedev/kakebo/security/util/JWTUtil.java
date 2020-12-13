@@ -18,11 +18,6 @@ public class JWTUtil {
     private final String KEY = "some_random_secret";
     private final Integer EXPIRY_TIME = 60 * 60 * 24 * 2000;
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaim(token);
-        return claimsResolver.apply(claims);
-    }
-
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -34,6 +29,11 @@ public class JWTUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaim(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaim(String token) {

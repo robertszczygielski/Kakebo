@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Data
-@ToString
+@ToString(exclude = {"password", "username"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
