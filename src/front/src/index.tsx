@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import LoginBasic from "./login/Login";
+import { LoginBasic } from "./login/Login";
+import { RegisterBasic } from "./register/Register";
 
 ReactDOM.render(
     <React.StrictMode>
         <LoginBasic/>
+        <RegisterBasic/>
         <App/>
     </React.StrictMode>,
     document.getElementById('root')

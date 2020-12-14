@@ -1,9 +1,11 @@
 import React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
+import { registerUser } from "./api/RegisterApi";
 
 interface IFormValues {
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
 interface IOtherProps {
@@ -22,6 +24,9 @@ const InnerForm = (props: IOtherProps & FormikProps<IFormValues>) => {
             <Field type="password" name="password" />
             {touched.password && errors.password && <div>{errors.password}</div>}
 
+            <Field type="password" name="confirmPassword" />
+            {touched.password && errors.password && <div>{errors.password}</div>}
+
             <button type="submit" disabled={isSubmitting}>
                 Submit
             </button>
@@ -34,11 +39,12 @@ interface IFormLoginProps {
     message: string;
 }
 
-const LoginForm = withFormik<IFormLoginProps, IFormValues>({
+const RegisterForm = withFormik<IFormLoginProps, IFormValues>({
     mapPropsToValues: props => {
         return {
             email: props.initialEmail || '',
             password: '',
+            confirmPassword: '',
         };
     },
 
@@ -58,12 +64,13 @@ const LoginForm = withFormik<IFormLoginProps, IFormValues>({
     },
 
     handleSubmit: values => {
-
+        registerUser();
+        console.log('User registration');
     },
 })(InnerForm);
 
-export const LoginBasic = () => (
+export const RegisterBasic = () => (
     <div>
-        <LoginForm message="Sign up" />
+        <RegisterForm message="Sign up" />
     </div>
 );
