@@ -1,5 +1,6 @@
-import React from 'react';
-import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
+import * as React from 'react';
+import { Field, Form, Formik } from 'formik';
+import { registerUser } from "../register/api/RegisterApi";
 
 interface IFormValues {
     email: string;
@@ -10,60 +11,30 @@ interface IOtherProps {
     message: string;
 }
 
-const InnerForm = (props: IOtherProps & FormikProps<IFormValues>) => {
-    const { touched, errors, isSubmitting, message } = props;
+export const LoginBasic: React.FC = () => {
+    const initialValues: IFormValues = {
+        email: '',
+        password: '',
+    };
+
     return (
-        <Form>
-            <h1>{message}</h1>
-
-            <Field type="email" name="email" />
-            {touched.email && errors.email && <div>{errors.email}</div>}
-
-            <Field type="password" name="password" />
-            {touched.password && errors.password && <div>{errors.password}</div>}
-
-            <button type="submit" disabled={isSubmitting}>
-                Submit
-            </button>
-        </Form>
+        <div>
+            <h1>My Example</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values, actions) => {
+                    console.log({values, actions});
+                    alert(JSON.stringify(values, null, 2));
+                    actions.setSubmitting(false);
+                    registerUser();
+                }}
+            >
+                <Form>
+                    <Field type="email" id="email" name="email" placeholder="email"/>
+                    <Field type="password" id="password" name="password" placeholder="password"/>
+                    <button type="submit">Submit</button>
+                </Form>
+            </Formik>
+        </div>
     );
-};
-
-interface IFormLoginProps {
-    initialEmail?: string;
-    message: string;
 }
-
-const LoginForm = withFormik<IFormLoginProps, IFormValues>({
-    mapPropsToValues: props => {
-        return {
-            email: props.initialEmail || '',
-            password: '',
-        };
-    },
-
-    validate: (values: IFormValues) => {
-        let errors: FormikErrors<IFormValues> = {};
-
-        function isValidEmail(email: string) {
-            return false;
-        }
-
-        if (!values.email) {
-            errors.email = 'Required';
-        } else if (!isValidEmail(values.email)) {
-            errors.email = 'Invalid email address';
-        }
-        return errors;
-    },
-
-    handleSubmit: values => {
-
-    },
-})(InnerForm);
-
-export const LoginBasic = () => (
-    <div>
-        <LoginForm message="Sign up" />
-    </div>
-);
