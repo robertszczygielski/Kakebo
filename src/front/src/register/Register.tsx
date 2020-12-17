@@ -19,17 +19,19 @@ export const RegisterBasic: React.FC = () => {
         confirmPassword: ''
     };
 
+    const submitHandler = (values: any, actions: any) => {
+        console.log({values, actions});
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+        registerUser(values.email, values.password);
+    }
+
     return (
         <div>
             <h1>My Example</h1>
             <Formik
                 initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                    console.log({values, actions});
-                    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                    registerUser();
-                }}
+                onSubmit={submitHandler}
             >
                 <Form>
                     <Field type="email" id="email" name="email" placeholder="email"/>
