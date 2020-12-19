@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { registerUser } from "./api/RegisterApi";
 
 interface IFormValues {
     email: string;
     password: string;
     confirmPassword: string;
-}
-
-interface IOtherProps {
-    message: string;
 }
 
 export const RegisterBasic: React.FC = () => {
