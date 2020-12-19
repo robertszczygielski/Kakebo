@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { Field, Form, Formik } from 'formik';
-import { registerUser } from "../register/api/RegisterApi";
+import { loginUser } from "./api/LoginApi";
 
 interface IFormValues {
     email: string;
     password: string;
-}
-
-interface IOtherProps {
-    message: string;
 }
 
 export const LoginBasic: React.FC = () => {
@@ -17,17 +13,20 @@ export const LoginBasic: React.FC = () => {
         password: '',
     };
 
+    const submitHandler = (values: any) => {
+        const t = loginUser(values.email, values.password)
+            .then((data: any) => {
+                const token = data.jwtToken;
+                localStorage.setItem('jwtToken', token);
+            })
+    }
+
     return (
         <div>
             <h1>My Example</h1>
             <Formik
                 initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                    console.log({values, actions});
-                    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                    registerUser();
-                }}
+                onSubmit={submitHandler}
             >
                 <Form>
                     <Field type="email" id="email" name="email" placeholder="email"/>
