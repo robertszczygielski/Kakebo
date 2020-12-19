@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.security.bto.UserBto;
+import pl.dicedev.kakebo.security.exceptions.UserNotExistInDatabaseException;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -27,13 +28,7 @@ public class KakeboUserDetailsService implements UserDetailsService {
                     .id(ue.getId())
                     .build();
         } else {
-            return UserBto.builder()
-                    .username("NN")
-                    .password("NN")
-                    .authorities(Collections.emptyList())
-                    .id(UUID.randomUUID())
-                    .build();
-
+            throw new UserNotExistInDatabaseException();
         }
     }
 }
