@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Field, Form, Formik } from 'formik';
-import { loginUser } from "./api/LoginApi";
+import { loginUser } from './api/LoginApi';
+import setAuthenticationToken from "../api/main";
 
 interface IFormValues {
     email: string;
@@ -14,10 +15,11 @@ export const LoginBasic: React.FC = () => {
     };
 
     const submitHandler = (values: any) => {
-        const t = loginUser(values.email, values.password)
+        loginUser(values.email, values.password)
             .then((data: any) => {
                 const token = data.jwtToken;
                 localStorage.setItem('jwtToken', token);
+                setAuthenticationToken(token);
             })
     }
 

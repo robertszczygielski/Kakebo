@@ -6,3 +6,11 @@ axios.defaults.headers.post['Accept'] = 'application/json'
 
 export const ASSETS_URI: string = 'http://localhost:8080/asset/'
 export const AUTH_URI: string = 'http://localhost:8080/auth/'
+
+export default function setAuthenticationToken(token: string) {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+}

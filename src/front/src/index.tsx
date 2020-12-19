@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { LoginBasic } from "./login/Login";
 import { RegisterBasic } from "./register/Register";
+import setAuthenticationToken from "./api/main";
+
+setAuthenticationToken(localStorage.jwtToken);
 
 ReactDOM.render(
     <React.StrictMode>
