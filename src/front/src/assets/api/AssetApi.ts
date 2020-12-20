@@ -6,3 +6,9 @@ export const getAllAssets: any = () => {
         .then((rest) => { return rest.data })
         .catch(err => console.error(err))
 }
+
+export const setAsset: any = (value: number) => {
+    return axios.post(ASSETS_URI + "set", {"amount": value})
+        .then((rest) => { return rest.data })
+        .catch(err => console.error(err))
+}

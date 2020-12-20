@@ -6,14 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { LoginBasic } from "./login/Login";
 import { RegisterBasic } from "./register/Register";
 import setAuthenticationToken from "./api/main";
+import { AssetForm } from "./assets/components/AssetForm";
 
 setAuthenticationToken(localStorage.jwtToken);
 
 ReactDOM.render(
     <React.StrictMode>
-        <LoginBasic/>
-        <RegisterBasic/>
-        <App/>
+        <LoginBasic />
+        <RegisterBasic />
+        <AssetForm />
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 );

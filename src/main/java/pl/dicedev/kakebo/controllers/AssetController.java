@@ -11,6 +11,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("asset/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:8080")
 public class AssetController {
 
     private final AssetService assetService;
