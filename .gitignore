@@ -49,6 +49,7 @@ src/front/.env.local
 src/front/.env.development.local
 src/front/.env.test.local
 src/front/.env.production.local
+src/front/.eslintcache
 
 src/front/npm-debug.log*
 src/front/yarn-debug.log*
