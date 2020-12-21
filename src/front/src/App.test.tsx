@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import ReactDOM from 'react-dom';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Hello/i);
-  expect(linkElement).toBeInTheDocument();
+test('<App>', () => {
+    const root = document.createElement("div");
+    ReactDOM.render(<App/>, root);
+
+    expect(root.querySelector("ul")).toBeDefined();
 });
