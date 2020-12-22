@@ -11,6 +11,8 @@ import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.security.UserDetailsRepository;
 import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
+import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
@@ -37,6 +39,7 @@ public class AssetServiceImpl implements AssetService {
             userEntity = userEntityOptional.get();
         } else {
             log.error("NO USER");
+            throw new UserNotExistException();
         }
 
         var entity = assetMapper.fromDtoToEntity(assetDto, userEntity);

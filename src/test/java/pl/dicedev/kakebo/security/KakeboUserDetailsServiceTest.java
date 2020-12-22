@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
-import pl.dicedev.kakebo.security.exceptions.UserNotExistInDatabaseException;
+import pl.dicedev.kakebo.security.exceptions.IncorrectUserOrPasswordException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -46,7 +46,7 @@ class KakeboUserDetailsServiceTest {
         Mockito.when(userDetailsRepository.findByUsername(userLogin)).thenReturn(Optional.empty());
 
         // when
-        var result = Assertions.assertThrows(UserNotExistInDatabaseException.class,
+        var result = Assertions.assertThrows(IncorrectUserOrPasswordException.class,
                 () -> kakeboUserDetailsService.loadUserByUsername(userLogin));
 
         // then
