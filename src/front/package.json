@@ -43,6 +43,8 @@
     ]
   },
   "devDependencies": {
-    "formik": "^2.2.5"
+    "@types/react-router-dom": "^5.1.6",
+    "formik": "^2.2.5",
+    "react-router-dom": "^5.2.0"
   }
 }
