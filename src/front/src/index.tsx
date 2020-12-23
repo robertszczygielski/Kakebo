@@ -49,12 +49,6 @@ ReactDOM.render(
             </Switch>
         </div>
     </Router>,
-    // <React.StrictMode>
-    //     <LoginBasic />
-    //     <RegisterBasic />
-    //     <AssetForm />
-    //     <App />
-    // </React.StrictMode>,
     document.getElementById('root')
 );
 
