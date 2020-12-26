@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 import { registerUser } from "./api/RegisterApi";
 
@@ -15,26 +16,36 @@ export const RegisterBasic: React.FC = () => {
         confirmPassword: ''
     };
 
-    const submitHandler = (values: any, actions: any) => {
-        console.log({values, actions});
-        alert(JSON.stringify(values, null, 2));
-        actions.setSubmitting(false);
+    const validationSchema = Yup.object({
+        email: Yup.string().email("Invalid email").required("Email is required"),
+        password: Yup.string().required("Password is required"),
+        confirmPassword: Yup.string().oneOf([Yup.ref("Password"), ''], "Password must match").required("Password must match")
+    })
+
+    const submitHandler = (values: any) => {
         registerUser(values.email, values.password);
     }
 
     return (
         <div>
-            <h1>My Example</h1>
+            <h1>Register</h1>
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}
+                validationSchema={validationSchema}
             >
-                <Form>
+                {({errors, touched}) => (<Form>
                     <Field type="email" id="email" name="email" placeholder="email"/>
+                    {errors.email && touched.email ? (<div>{errors.email}</div>) : <div/>}
+
                     <Field type="password" id="password" name="password" placeholder="password"/>
+                    {errors.password && touched.password ? (<div>{errors.password}</div>) : <div/>}
+
                     <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="confirmPassword"/>
+                    {errors.confirmPassword && touched.confirmPassword ? (<div>{errors.confirmPassword}</div>) : <div/>}
+
                     <button type="submit">Submit</button>
-                </Form>
+                </Form>)}
             </Formik>
         </div>
     );
