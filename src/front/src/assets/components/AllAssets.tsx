@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAssets } from "./assets/api/AssetApi";
+import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface IAsset {
@@ -7,7 +7,7 @@ interface IAsset {
     amount: number;
 }
 
-const App: React.FC = () => {
+const AllAssets: React.FC = () => {
     const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
 
     useEffect(() => {
@@ -32,4 +32,4 @@ const App: React.FC = () => {
     );
 }
 
-export default App;
+export default AllAssets;
