@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import setAuthenticationToken from "./api/main";
-import { LoggedRouter } from "./router/LoggedRouter";
+import { RootRouter } from "./router/RootRouter";
 
 setAuthenticationToken(localStorage.jwtToken);
 
 ReactDOM.render(
-    <LoggedRouter />,
+    <RootRouter />,
     document.getElementById('root')
-)
-;
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

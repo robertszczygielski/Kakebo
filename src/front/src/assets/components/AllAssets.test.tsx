@@ -1,10 +1,10 @@
 import React from 'react';
-import App from './App';
+import AllAssets from './AllAssets';
 import ReactDOM from 'react-dom';
 
-test('<App>', () => {
+test('<AllAssets>', () => {
     const root = document.createElement("div");
-    ReactDOM.render(<App/>, root);
+    ReactDOM.render(<AllAssets/>, root);
 
     expect(root.querySelector("ul")).toBeDefined();
 });
