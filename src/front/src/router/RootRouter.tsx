@@ -5,6 +5,7 @@ import { LoginBasic } from "../login/Login";
 import AllAssets from "../assets/components/AllAssets";
 import { AssetForm } from "../assets/components/AssetForm";
 import { RegisterBasic } from "../register/Register";
+import { Loguot } from "../loguot/Loguot";
 
 export class RootRouter extends React.Component {
     render() {
@@ -20,17 +21,24 @@ export class RootRouter extends React.Component {
                         <Nav.Item>
                             <Nav.Link href="/addAsset">Add Assets</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/logout">Logout</Nav.Link>
+                        </Nav.Item>
+
                     </Nav>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                     <Switch>
-                        <Redirect strict from="/login/ok" to="/allAsset" />
+                        <Redirect strict from="/login/ok" to="/allAsset"/>
                         <Route path="/allAsset">
                             <AllAssets/>
                         </Route>
                         <Route path="/addAsset">
                             <AssetForm/>
+                        </Route>
+                        <Route path="/logout">
+                            <Loguot/>
                         </Route>
                     </Switch>
                 </div>
@@ -47,7 +55,7 @@ export class RootRouter extends React.Component {
                         </Nav.Item>
                     </Nav>
                     <Switch>
-                        <Redirect strict from="/login/ok" to="/allAsset" />
+                        <Redirect strict from="/login/ok" to="/allAsset"/>
                         <Route path="/login">
                             <LoginBasic/>
                         </Route>
