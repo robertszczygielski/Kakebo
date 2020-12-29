@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { LoginBasic } from "../login/Login";
 import AllAssets from "../assets/components/AllAssets";
@@ -13,7 +13,7 @@ export class RootRouter extends React.Component {
         if (isLogged) {
             return <Router>
                 <div>
-                    <Nav justify variant="tabs" defaultActiveKey="/">
+                    <Nav justify variant="tabs" defaultActiveKey="/allAsset">
                         <Nav.Item>
                             <Nav.Link href="/allAsset">All Assets</Nav.Link>
                         </Nav.Item>
@@ -25,6 +25,7 @@ export class RootRouter extends React.Component {
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                     <Switch>
+                        <Redirect strict from="/login/ok" to="/allAsset" />
                         <Route path="/allAsset">
                             <AllAssets/>
                         </Route>
@@ -46,6 +47,7 @@ export class RootRouter extends React.Component {
                         </Nav.Item>
                     </Nav>
                     <Switch>
+                        <Redirect strict from="/login/ok" to="/allAsset" />
                         <Route path="/login">
                             <LoginBasic/>
                         </Route>
