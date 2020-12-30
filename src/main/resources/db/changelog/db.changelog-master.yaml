@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/migration/002-usersSchema.yaml
   - include:
       file: db/migration/003-updateAsset.yaml
+  - include:
+      file: db/migration/004-loginLogoutFlagUser.yaml
