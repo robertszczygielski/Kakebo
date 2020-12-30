@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 30122020
+      author: robertszczygielski
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: logged
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
