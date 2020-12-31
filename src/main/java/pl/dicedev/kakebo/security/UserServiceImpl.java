@@ -40,4 +40,14 @@ public class UserServiceImpl implements UserService {
             log.info("user do not exist; id:{}, username: {}", authUserDto.getId(), authUserDto.getUsername());
         }
     }
+
+    @Override
+    public void setLoggedIn(String userName) {
+        userDetailsRepository.setLoggedIn(userName);
+    }
+
+    @Override
+    public void setLoggedOut(UUID userId) {
+        userDetailsRepository.setLoggedOut(userId);
+    }
 }

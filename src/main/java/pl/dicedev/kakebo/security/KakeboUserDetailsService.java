@@ -25,9 +25,12 @@ public class KakeboUserDetailsService implements UserDetailsService {
                     .password(ue.getPassword())
                     .authorities(Collections.emptyList())
                     .id(ue.getId())
+                    .credentialsNonExpired(ue.isLogged())
                     .build();
         } else {
             throw new IncorrectUserOrPasswordException();
         }
     }
+
+
 }

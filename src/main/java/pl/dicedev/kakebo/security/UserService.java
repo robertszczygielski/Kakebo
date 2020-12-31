@@ -9,4 +9,8 @@ public interface UserService {
     UUID saveUser(AuthUserDto authUserDto);
 
     void deleteUser(AuthUserDto authUserDto);
+
+    void setLoggedIn(String userName);
+
+    void setLoggedOut(UUID userId);
 }

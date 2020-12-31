@@ -2,7 +2,6 @@ package pl.dicedev.kakebo.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.mappers.AssetMapper;
@@ -10,8 +9,6 @@ import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.security.UserDetailsRepository;
 import pl.dicedev.kakebo.security.bto.UserBto;
-import pl.dicedev.kakebo.security.dto.AuthUserDto;
-import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
@@ -32,9 +29,9 @@ public class AssetServiceImpl implements AssetService {
     public UUID save(AssetDto assetDto) {
         log.info("Save Asset: {}", assetDto);
         var auth = SecurityContextHolder.getContext().getAuthentication();
-        var userId = ((UserBto)auth.getPrincipal()).getId();
+        var userId = ((UserBto) auth.getPrincipal()).getId();
         var userEntityOptional = userDetailsRepository.findById(userId);
-        UserEntity userEntity = null;
+        UserEntity userEntity;
         if (userEntityOptional.isPresent()) {
             userEntity = userEntityOptional.get();
         } else {
@@ -60,7 +57,7 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public List<AssetDto> findAll() {
-        log.info("Fina all assets");
+        log.info("Find all assets");
         return assetMapper.fromEntityToDto(assetRepository.findAll());
     }
 }

@@ -9,6 +9,7 @@ import pl.dicedev.kakebo.security.AuthenticationService;
 import pl.dicedev.kakebo.security.UserService;
 import pl.dicedev.kakebo.security.dto.AuthResponse;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.services.LoginService;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -19,12 +20,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthenticateController {
 
-    private final AuthenticationService authenticationService;
+//    private final AuthenticationService authenticationService;
     private final UserService userService;
+    private final LoginService loginService;
 
     @PostMapping
     public AuthResponse createAuthenticationToken(@RequestBody AuthUserDto authUserDto) {
-        return authenticationService.authenticateUser(authUserDto);
+        return loginService.loginUser(authUserDto);
     }
 
     @PostMapping("/createUser")
