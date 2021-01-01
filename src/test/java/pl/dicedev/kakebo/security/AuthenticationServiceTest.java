@@ -10,9 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
 import pl.dicedev.kakebo.security.exceptions.BadKakeboCredentialsException;
@@ -37,7 +34,7 @@ class AuthenticationServiceTest {
 
     @BeforeEach
     public void setup() {
-        JWTUtil jwtUtil = new JWTUtil();
+        var jwtUtil = new JWTUtil();
 
         authenticationService = new AuthenticationService(authenticationManager, userDetailsService, jwtUtil);
     }

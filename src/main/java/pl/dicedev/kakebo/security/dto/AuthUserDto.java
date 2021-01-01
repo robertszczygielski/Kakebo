@@ -1,6 +1,8 @@
 package pl.dicedev.kakebo.security.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import java.util.UUID;
