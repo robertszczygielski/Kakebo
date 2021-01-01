@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pl.dicedev.kakebo.controllers.handlers.dto.KakeboErrorDto;
-import pl.dicedev.kakebo.security.AuthenticationService;
 import pl.dicedev.kakebo.security.UserService;
 import pl.dicedev.kakebo.security.dto.AuthResponse;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
@@ -20,13 +19,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthenticateController {
 
-//    private final AuthenticationService authenticationService;
     private final UserService userService;
     private final LoginService loginService;
 
     @PostMapping
     public AuthResponse createAuthenticationToken(@RequestBody AuthUserDto authUserDto) {
         return loginService.loginUser(authUserDto);
+    }
+
+    @PostMapping
+    public HttpStatus logoutUser() {
+        loginService.logoutUser();
+        return HttpStatus.NO_CONTENT;
     }
 
     @PostMapping("/createUser")
