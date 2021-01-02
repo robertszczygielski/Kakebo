@@ -20,6 +20,8 @@ public interface UserDetailsRepository extends CrudRepository<UserEntity, UUID> 
     @Query("UPDATE UserEntity set logged = true where username = :userName")
     void setLoggedIn(@Param("userName") String userName);
 
+    @Modifying
+    @Transactional
     @Query("UPDATE UserEntity set logged = false where id = :userId")
     void setLoggedOut(UUID userId);
 }

@@ -24,13 +24,11 @@ public class KakeboUserDetailsService implements UserDetailsService {
                     .username(ue.getUsername())
                     .password(ue.getPassword())
                     .authorities(Collections.emptyList())
+                    .logged(ue.isLogged())
                     .id(ue.getId())
-                    .credentialsNonExpired(ue.isLogged())
                     .build();
         } else {
             throw new IncorrectUserOrPasswordException();
         }
     }
-
-
 }
