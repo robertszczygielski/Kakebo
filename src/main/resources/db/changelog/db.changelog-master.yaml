@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/migration/003-updateAsset.yaml
   - include:
       file: db/migration/004-loginLogoutFlagUser.yaml
+  - include:
+      file: db/migration/005-expensesSchema.yaml
