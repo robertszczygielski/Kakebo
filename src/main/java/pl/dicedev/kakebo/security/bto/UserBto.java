@@ -32,4 +32,6 @@ public class UserBto implements UserDetails {
     @Builder.Default
     private boolean enabled = true;
 
+    private boolean logged;
+
 }

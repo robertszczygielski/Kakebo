@@ -27,7 +27,7 @@ public class AuthenticateController {
         return loginService.loginUser(authUserDto);
     }
 
-    @PostMapping
+    @PostMapping("/logout")
     public HttpStatus logoutUser() {
         loginService.logoutUser();
         return HttpStatus.NO_CONTENT;
