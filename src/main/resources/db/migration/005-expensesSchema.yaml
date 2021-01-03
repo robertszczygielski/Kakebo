@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 03012021
+      author: robertszczygielski
+      changes:
+        - createTable:
+            tableName: expenses
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: numeric
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_in_expenses
+                    references: users(id)
+              - column:
+                  name: expense_date
+                  type: timestamp
