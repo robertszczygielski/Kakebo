@@ -12,8 +12,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AssetMapper {
 
-    AssetMapper INSTANCE = Mappers.getMapper(AssetMapper.class);
-
     AssetDto fromEntityToDto(AssetEntity entity);
 
     @Mapping(source = "userEntity", target = "user")
