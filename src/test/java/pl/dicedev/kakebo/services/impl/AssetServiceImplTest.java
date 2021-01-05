@@ -45,7 +45,7 @@ class AssetServiceImplTest {
 
     @BeforeEach
     public void init() {
-        AssetMapper assetMapper = new AssetMapperImpl();
+        var assetMapper = new AssetMapperImpl();
         assetService = new AssetServiceImpl(assetRepository, userDetailsRepository, assetMapper);
     }
 
