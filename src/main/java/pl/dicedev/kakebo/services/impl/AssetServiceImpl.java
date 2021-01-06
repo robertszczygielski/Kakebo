@@ -22,24 +22,14 @@ import java.util.UUID;
 public class AssetServiceImpl implements AssetService {
 
     private final AssetRepository assetRepository;
-    private final UserDetailsRepository userDetailsRepository;
     private final AssetMapper assetMapper;
+    private final UserMerge userMerge;
 
     @Override
     public UUID save(AssetDto assetDto) {
         log.info("Save Asset: {}", assetDto);
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-        var userId = ((UserBto) auth.getPrincipal()).getId();
-        var userEntityOptional = userDetailsRepository.findById(userId);
-        UserEntity userEntity;
-        if (userEntityOptional.isPresent()) {
-            userEntity = userEntityOptional.get();
-        } else {
-            log.error("NO USER");
-            throw new UserNotExistException();
-        }
 
-        var entity = assetMapper.fromDtoToEntity(assetDto, userEntity);
+        var entity = assetMapper.fromDtoToEntity(assetDto, userMerge.getLoggedUserEntity());
         var saved = assetRepository.save(entity);
         log.info("Saved Asset: {}", saved);
 

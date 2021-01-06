@@ -1,24 +1,15 @@
 package pl.dicedev.kakebo.services.impl;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.mappers.AssetMapperImpl;
 import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.repositories.entities.AssetEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
-import pl.dicedev.kakebo.security.UserDetailsRepository;
-import pl.dicedev.kakebo.security.bto.UserBto;
-import pl.dicedev.kakebo.security.exceptions.IncorrectUserOrPasswordException;
-import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
@@ -30,8 +21,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.Mockito.mock;
-import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.USER_NOT_EXISTS;
 
 @ExtendWith(MockitoExtension.class)
 class AssetServiceImplTest {
@@ -41,23 +30,22 @@ class AssetServiceImplTest {
     @Mock
     private AssetRepository assetRepository;
     @Mock
-    private UserDetailsRepository userDetailsRepository;
+    private UserMerge userMerge;
 
     @BeforeEach
     public void init() {
         var assetMapper = new AssetMapperImpl();
-        assetService = new AssetServiceImpl(assetRepository, userDetailsRepository, assetMapper);
+        assetService = new AssetServiceImpl(assetRepository, assetMapper, userMerge);
     }
 
     @Test
     void shouldCallSave() {
         // given
         var userId = UUID.randomUUID();
-        var userBto = UserBto.builder().id(userId).build();
         var dto = new AssetDto();
         var entity = new AssetEntity();
         var entityFromDto = new AssetEntity();
-        var  userEntity = new UserEntity();
+        var userEntity = new UserEntity();
 
         dto.setAmount(BigDecimal.ONE);
         entityFromDto.setAmount(BigDecimal.ONE);
@@ -66,45 +54,14 @@ class AssetServiceImplTest {
         entity.setId(UUID.randomUUID());
         entity.setUser(userEntity);
 
-        Authentication authentication = mock(Authentication.class);
-        SecurityContext securityContext = mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
-        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(userBto);
-
         Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
-        Mockito.when(userDetailsRepository.findById(userId)).thenReturn(Optional.of(userEntity));
+        Mockito.when(userMerge.getLoggedUserEntity()).thenReturn(userEntity);
 
         // when
         var result = assetService.save(dto);
 
         // then
         assertThat(result).isNotNull();
-
-    }
-
-    @Test
-    void shouldThrowExceptionWhenUserNotExistsInDatabase() {
-        // given
-        var userId = UUID.randomUUID();
-        var userBto = UserBto.builder().id(userId).build();
-        var dto = new AssetDto();
-
-        Authentication authentication = mock(Authentication.class);
-        SecurityContext securityContext = mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
-        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(userBto);
-
-        Mockito.when(userDetailsRepository.findById(userId)).thenReturn(Optional.empty());
-
-        // when
-
-        var result = Assertions.assertThrows(UserNotExistException.class,
-                () -> assetService.save(dto));
-
-        // then
-        assertThat(result.getMessage()).isEqualTo(USER_NOT_EXISTS);
 
     }
 

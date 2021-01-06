@@ -14,7 +14,6 @@ import pl.dicedev.kakebo.mappers.ExpensesSingleMapperImpl;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
 import pl.dicedev.kakebo.repositories.entities.ExpensesEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
-import pl.dicedev.kakebo.security.UserDetailsRepository;
 import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
@@ -37,13 +36,13 @@ public class ExpensesServicesImplTest {
     private ExpensesRepository expensesRepository;
 
     @Mock
-    private UserDetailsRepository userDetailsRepository;
+    private UserMerge userMerge;
 
     @BeforeEach
     public void init() {
         var expensesSingleMapper = new ExpensesSingleMapperImpl();
         var expensesMapper = new ExpensesMapper(expensesSingleMapper);
-        expensesService = new ExpensesServiceImpl(expensesRepository, expensesMapper, userDetailsRepository);
+        expensesService = new ExpensesServiceImpl(expensesRepository, expensesMapper, userMerge);
     }
 
     @Test
@@ -52,16 +51,10 @@ public class ExpensesServicesImplTest {
         var userId = UUID.randomUUID();
         var expectedEntities = prepareEntities(1, userId);
         var dot = prepareDtos(1);
-        var userBto = UserBto.builder().id(userId).build();
         var userEntity = new UserEntity();
         userEntity.setId(userId);
 
-        Authentication authentication = mock(Authentication.class);
-        SecurityContext securityContext = mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
-        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(userBto);
-        Mockito.when(userDetailsRepository.findById(userId)).thenReturn(Optional.of(userEntity));
+        Mockito.when(userMerge.getLoggedUserEntity()).thenReturn(userEntity);
 
         // when
         expensesService.saveExpenses(dot);
