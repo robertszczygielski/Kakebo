@@ -16,7 +16,7 @@ public class ExpensesController {
     private final ExpensesService expensesService;
 
     public void setExpenses(List<ExpensesDto> expenses) {
-
+        expensesService.saveExpenses(expenses);
     }
 
 }
