@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ExpensesController {
 
-    private ExpensesService expensesService;
+    private final ExpensesService expensesService;
 
     public void setExpenses(List<ExpensesDto> expenses) {
 
