@@ -2,14 +2,9 @@ package pl.dicedev.kakebo.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
-import pl.dicedev.kakebo.repositories.entities.UserEntity;
-import pl.dicedev.kakebo.security.UserDetailsRepository;
-import pl.dicedev.kakebo.security.bto.UserBto;
-import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
@@ -23,13 +18,13 @@ public class AssetServiceImpl implements AssetService {
 
     private final AssetRepository assetRepository;
     private final AssetMapper assetMapper;
-    private final UserMerge userMerge;
+    private final UserLogInfoService userLogInfoService;
 
     @Override
     public UUID save(AssetDto assetDto) {
         log.info("Save Asset: {}", assetDto);
 
-        var entity = assetMapper.fromDtoToEntity(assetDto, userMerge.getLoggedUserEntity());
+        var entity = assetMapper.fromDtoToEntity(assetDto, userLogInfoService.getLoggedUserEntity());
         var saved = assetRepository.save(entity);
         log.info("Saved Asset: {}", saved);
 

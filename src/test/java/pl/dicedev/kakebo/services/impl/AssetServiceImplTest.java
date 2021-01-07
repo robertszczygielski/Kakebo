@@ -30,12 +30,12 @@ class AssetServiceImplTest {
     @Mock
     private AssetRepository assetRepository;
     @Mock
-    private UserMerge userMerge;
+    private UserLogInfoService userLogInfoService;
 
     @BeforeEach
     public void init() {
         var assetMapper = new AssetMapperImpl();
-        assetService = new AssetServiceImpl(assetRepository, assetMapper, userMerge);
+        assetService = new AssetServiceImpl(assetRepository, assetMapper, userLogInfoService);
     }
 
     @Test
@@ -55,7 +55,7 @@ class AssetServiceImplTest {
         entity.setUser(userEntity);
 
         Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
-        Mockito.when(userMerge.getLoggedUserEntity()).thenReturn(userEntity);
+        Mockito.when(userLogInfoService.getLoggedUserEntity()).thenReturn(userEntity);
 
         // when
         var result = assetService.save(dto);
