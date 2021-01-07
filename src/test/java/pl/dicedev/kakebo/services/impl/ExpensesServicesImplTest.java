@@ -6,21 +6,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.mappers.ExpensesSingleMapperImpl;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
 import pl.dicedev.kakebo.repositories.entities.ExpensesEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
-import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -36,13 +31,13 @@ public class ExpensesServicesImplTest {
     private ExpensesRepository expensesRepository;
 
     @Mock
-    private UserMerge userMerge;
+    private UserLogInfoService userLogInfoService;
 
     @BeforeEach
     public void init() {
         var expensesSingleMapper = new ExpensesSingleMapperImpl();
         var expensesMapper = new ExpensesMapper(expensesSingleMapper);
-        expensesService = new ExpensesServiceImpl(expensesRepository, expensesMapper, userMerge);
+        expensesService = new ExpensesServiceImpl(expensesRepository, expensesMapper, userLogInfoService);
     }
 
     @Test
@@ -54,7 +49,7 @@ public class ExpensesServicesImplTest {
         var userEntity = new UserEntity();
         userEntity.setId(userId);
 
-        Mockito.when(userMerge.getLoggedUserEntity()).thenReturn(userEntity);
+        Mockito.when(userLogInfoService.getLoggedUserEntity()).thenReturn(userEntity);
 
         // when
         expensesService.saveExpenses(dot);

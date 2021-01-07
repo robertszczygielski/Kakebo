@@ -17,12 +17,12 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     private final ExpensesRepository expensesRepository;
     private final ExpensesMapper expensesMapper;
-    private final UserMerge userMerge;
+    private final UserLogInfoService userLogInfoService;
 
     @Override
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
         log.info("Expenses to save: {}", expensesDtos.size());
-        var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, userMerge.getLoggedUserEntity());
+        var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, userLogInfoService.getLoggedUserEntity());
         expensesRepository.saveAll(expensesEntities);
         log.info("Saved expenses = {}", expensesEntities.size());
     }
