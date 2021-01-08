@@ -17,6 +17,7 @@ public interface AssetMapper {
     @Mapping(source = "userEntity", target = "user")
     @Mapping(source = "dto.amount", target = "amount")
     @Mapping(source = "dto.id", target = "id")
+    @Mapping(source = "dto.incomeDate", target = "incomeDate")
     AssetEntity fromDtoToEntity(AssetDto dto, UserEntity userEntity);
 
     List<AssetDto> fromEntityToDto(Iterable<AssetEntity> entities);

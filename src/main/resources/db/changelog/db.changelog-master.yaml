@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/migration/004-loginLogoutFlagUser.yaml
   - include:
       file: db/migration/005-expensesSchema.yaml
+  - include:
+      file: db/migration/006-updateAssetAddIncomeDate.yaml

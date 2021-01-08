@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("asset/")
+@RequestMapping("assets")
 @AllArgsConstructor
 public class AssetController {
 
     private final AssetService assetService;
 
-    @PostMapping("set")
+    @PostMapping
     public UUID setInitAsset(@RequestBody AssetDto asset) {
         return assetService.save(asset);
     }
@@ -25,7 +25,7 @@ public class AssetController {
         return assetService.findById(id);
     }
 
-    @GetMapping("get")
+    @GetMapping
     public List<AssetDto> getAll() {
         return assetService.findAll();
     }
