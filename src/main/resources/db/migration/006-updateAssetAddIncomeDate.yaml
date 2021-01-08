@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10122020
+      author: robertszczygielski
+      changes:
+        - addColumn:
+            tableName: asset
+            columns:
+              - column:
+                  name: income_date
+                  type: timestamp

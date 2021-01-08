@@ -1,6 +1,8 @@
 package pl.dicedev.kakebo.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.dicedev.kakebo.services.ExpensesService;
@@ -15,7 +17,8 @@ public class ExpensesController {
 
     private final ExpensesService expensesService;
 
-    public void setExpenses(List<ExpensesDto> expenses) {
+    @PostMapping
+    public void setExpenses(@RequestBody List<ExpensesDto> expenses) {
         expensesService.saveExpenses(expenses);
     }
 
