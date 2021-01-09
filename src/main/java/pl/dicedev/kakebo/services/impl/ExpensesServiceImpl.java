@@ -8,6 +8,7 @@ import pl.dicedev.kakebo.repositories.ExpensesRepository;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -25,6 +26,12 @@ public class ExpensesServiceImpl implements ExpensesService {
         var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, userLogInfoService.getLoggedUserEntity());
         expensesRepository.saveAll(expensesEntities);
         log.info("Saved expenses = {}", expensesEntities.size());
+    }
+
+    @Override
+    public BigDecimal countAllExpenses() {
+        var loggedUser = userLogInfoService.getLoggedUserEntity();
+        return expensesRepository.countAllExpenses(loggedUser);
     }
 
 }
