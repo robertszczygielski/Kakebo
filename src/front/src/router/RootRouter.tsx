@@ -6,6 +6,7 @@ import AllAssets from "../assets/components/AllAssets";
 import { AssetForm } from "../assets/components/AssetForm";
 import { RegisterBasic } from "../register/Register";
 import { Loguot } from "../loguot/Loguot";
+import { ExpensesForm } from "../expenses/components/ExpensesForm";
 
 export class RootRouter extends React.Component {
     render() {
@@ -22,9 +23,11 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/addAsset">Add Assets</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
+                            <Nav.Link href="/expenses">Logout</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
                             <Nav.Link href="/logout">Logout</Nav.Link>
                         </Nav.Item>
-
                     </Nav>
 
                     {/* A <Switch> looks through its children <Route>s and
@@ -36,6 +39,9 @@ export class RootRouter extends React.Component {
                         </Route>
                         <Route path="/addAsset">
                             <AssetForm/>
+                        </Route>
+                        <Route path="/expenses">
+                            <ExpensesForm/>
                         </Route>
                         <Route path="/logout">
                             <Loguot/>

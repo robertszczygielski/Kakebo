@@ -20,7 +20,7 @@ public class ExpensesController {
         expensesService.saveExpenses(expenses);
     }
 
-    @GetMapping
+    @GetMapping("/counted")
     public BigDecimal getCountedExpenses() {
         return expensesService.countAllExpenses();
     }
