@@ -17,13 +17,13 @@ export class RootRouter extends React.Component {
                 <div>
                     <Nav justify variant="tabs" defaultActiveKey="/allAsset">
                         <Nav.Item>
-                            <Nav.Link href="/allAsset">All Assets</Nav.Link>
+                            <Nav.Link href="/asset/all">All Assets</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/addAsset">Add Assets</Nav.Link>
+                            <Nav.Link href="/asset/add">Add Assets</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/expenses">Logout</Nav.Link>
+                            <Nav.Link href="/expenses">Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/logout">Logout</Nav.Link>
@@ -33,11 +33,11 @@ export class RootRouter extends React.Component {
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                     <Switch>
-                        <Redirect strict from="/login/ok" to="/allAsset"/>
-                        <Route path="/allAsset">
+                        <Redirect strict from="/login/ok" to="/asset/all"/>
+                        <Route path="/asset/all">
                             <AllAssets/>
                         </Route>
-                        <Route path="/addAsset">
+                        <Route path="/asset/add">
                             <AssetForm/>
                         </Route>
                         <Route path="/expenses">

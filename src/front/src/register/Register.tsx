@@ -19,7 +19,7 @@ export const RegisterBasic: React.FC = () => {
     const validationSchema = Yup.object({
         email: Yup.string().email("Invalid email").required("Email is required"),
         password: Yup.string().required("Password is required"),
-        confirmPassword: Yup.string().oneOf([Yup.ref("Password"), ''], "Password must match").required("Password must match")
+        confirmPassword: Yup.string().oneOf([Yup.ref("password"), ''], "Password must match").required("Password must match")
     })
 
     const submitHandler = (values: any) => {

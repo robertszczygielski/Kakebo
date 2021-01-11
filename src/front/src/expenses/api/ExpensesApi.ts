@@ -1,22 +1,24 @@
 import axios from "axios"
-import { ASSETS_URI } from "../../api/main";
-
-const EXPENSES_URI = ASSETS_URI + "/expenses";
+import { EXPENSES_URI } from "../../api/main";
 
 
 export interface IExpenses {
-    asset: number;
+    amount: number;
     expensesDate: Date;
 }
 
 export const getCountedExpenses: any = () => {
     return axios.get(EXPENSES_URI + "/counted")
-        .then((rest) => { return rest.data })
+        .then((rest) => {
+            return rest.data
+        })
         .catch(err => console.error(err))
 }
 
-export const setExpenses: any = (value: IExpenses) => {
-    return axios.post(EXPENSES_URI, {value})
-        .then((rest) => { return rest.data })
+export const setExpenses: any = (expenses: IExpenses[]) => {
+    return axios.post(EXPENSES_URI, expenses)
+        .then((rest) => {
+            return rest.data
+        })
         .catch(err => console.error(err))
 }
