@@ -4,12 +4,12 @@ import { IExpenses, setExpenses } from "../api/ExpensesApi";
 
 export const ExpensesForm: React.FC = () => {
     const initialValues: IExpenses = {
-        asset: 0,
+        amount: 0,
         expensesDate: new Date(),
     };
 
-    const submitHandler = (values: any) => {
-        setExpenses(values);
+    const submitHandler = (values: IExpenses) => {
+        setExpenses([values]);
     }
 
     return (
@@ -20,7 +20,7 @@ export const ExpensesForm: React.FC = () => {
                 onSubmit={submitHandler}
             >
                 <Form>
-                    <Field type="text" id="expenses" name="expenses" placeholder="0"/>
+                    <Field type="text" id="amount" name="amount" placeholder="0"/>
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
