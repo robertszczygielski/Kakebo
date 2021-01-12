@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import { LoginBasic } from "../login/Login";
+import { LoginBasic } from "../auth/login/Login";
 import AllAssets from "../assets/components/AllAssets";
 import { AssetForm } from "../assets/components/AssetForm";
-import { RegisterBasic } from "../register/Register";
-import { Loguot } from "../loguot/Loguot";
+import { RegisterBasic } from "../auth/register/Register";
+import { Loguot } from "../auth/loguot/Loguot";
 import { ExpensesForm } from "../expenses/components/ExpensesForm";
 
 export class RootRouter extends React.Component {

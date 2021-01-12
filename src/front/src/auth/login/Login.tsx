@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { loginUser } from './api/LoginApi';
-import setAuthenticationToken from "../api/main";
+import setAuthenticationToken from "../../api/main";
 import styled from 'styled-components';
 import { Redirect } from "react-router-dom";
 
