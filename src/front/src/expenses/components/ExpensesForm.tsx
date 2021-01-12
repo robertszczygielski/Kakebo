@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Field, Form, Formik } from 'formik';
 import { IExpenses, setExpenses } from "../api/ExpensesApi";
+import CountedExpenses from "./CountedExpenses";
 
 export const ExpensesForm: React.FC = () => {
     const initialValues: IExpenses = {
@@ -14,6 +15,7 @@ export const ExpensesForm: React.FC = () => {
 
     return (
         <div>
+            <CountedExpenses/>
             <h1>Set Expenses</h1>
             <Formik
                 initialValues={initialValues}

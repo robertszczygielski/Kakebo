@@ -8,7 +8,7 @@ export interface IExpenses {
 }
 
 export const getCountedExpenses: any = () => {
-    return axios.get(EXPENSES_URI + "/counted")
+    return axios.get(EXPENSES_URI + "counted")
         .then((rest) => {
             return rest.data
         })
