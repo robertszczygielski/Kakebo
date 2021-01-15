@@ -2,6 +2,7 @@ package pl.dicedev.kakebo.repositories.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import pl.dicedev.kakebo.enums.AssetCategory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,5 +29,8 @@ public class AssetEntity {
     private UserEntity user;
 
     private Instant incomeDate;
+
+    @Enumerated(EnumType.STRING)
+    private AssetCategory assetCategory;
 
 }

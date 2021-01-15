@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15012021
+      author: robertszczygielski
+      changes:
+        - addColumn:
+            tableName: asset
+            columns:
+              - column:
+                  name: asset_category
+                  type: text
