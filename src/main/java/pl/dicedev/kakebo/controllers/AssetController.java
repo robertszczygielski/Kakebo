@@ -20,7 +20,7 @@ public class AssetController {
     private final AssetService assetService;
 
     @PostMapping
-    public UUID setInitAsset(@RequestBody AssetDto asset) {
+    public UUID setAsset(@RequestBody AssetDto asset) {
         return assetService.save(asset);
     }
 

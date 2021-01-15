@@ -2,7 +2,6 @@ package pl.dicedev.kakebo.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import pl.dicedev.kakebo.repositories.entities.AssetEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
@@ -18,6 +17,7 @@ public interface AssetMapper {
     @Mapping(source = "dto.amount", target = "amount")
     @Mapping(source = "dto.id", target = "id")
     @Mapping(source = "dto.incomeDate", target = "incomeDate")
+    @Mapping(source = "dto.assetCategory", target = "assetCategory")
     AssetEntity fromDtoToEntity(AssetDto dto, UserEntity userEntity);
 
     List<AssetDto> fromEntityToDto(Iterable<AssetEntity> entities);
