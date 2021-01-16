@@ -2,10 +2,10 @@ package pl.dicedev.kakebo.enums;
 
 public enum AssetCategory {
 
-    salary("reliable"),
-    bonus("extra"),
-    loan_returned("extra"),
-    rent("reliable");
+    SALARY("reliable"),
+    BONUS("extra"),
+    LOAN_RETURNED("extra"),
+    RENT("reliable");
 
     private final String typeOfIncome;
 
