@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+import pl.dicedev.kakebo.enums.ExpensesCategory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,5 +34,7 @@ public class ExpensesEntity {
     private Instant expensesDate;
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
+    @Enumerated(EnumType.STRING)
+    private ExpensesCategory expensesCategory;
 
 }
