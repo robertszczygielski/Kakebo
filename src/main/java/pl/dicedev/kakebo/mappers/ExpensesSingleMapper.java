@@ -13,6 +13,7 @@ public interface ExpensesSingleMapper {
     @Mapping(source = "dto.amount", target = "amount")
     @Mapping(source = "dto.expensesDate", target = "expensesDate")
     @Mapping(source = "dto.id", target = "id")
+    @Mapping(source = "dto.expensesCategory", target = "expensesCategory")
     ExpensesEntity fromDtoToEntities(ExpensesDto dto, UserEntity userEntity);
 
 }
