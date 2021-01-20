@@ -13,7 +13,7 @@ import java.util.UUID;
 import static java.util.Arrays.asList;
 
 @RestController
-@RequestMapping("assets")
+@RequestMapping("asset")
 @AllArgsConstructor
 public class AssetController {
 
@@ -24,7 +24,7 @@ public class AssetController {
         return assetService.save(asset);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("/{id}")
     public AssetDto getInitAsset(@PathVariable("id") UUID id) {
         return assetService.findById(id);
     }
