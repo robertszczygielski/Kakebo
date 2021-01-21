@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 21012021
+      author: robertszczygielski
+      changes:
+        - addColumn:
+            tableName: expenses
+            columns:
+              - column:
+                  name: expenses_category
+                  type: text
