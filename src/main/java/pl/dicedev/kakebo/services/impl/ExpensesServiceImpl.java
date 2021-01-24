@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
+import pl.dicedev.kakebo.repositories.entities.ExpensesEntity;
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
@@ -24,20 +26,28 @@ public class ExpensesServiceImpl implements ExpensesService {
     @Override
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
         log.info("Expenses to save: {}", expensesDtos.size());
-        var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, userLogInfoService.getLoggedUserEntity());
+        var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, getLoggedUserEntity());
         expensesRepository.saveAll(expensesEntities);
         log.info("Saved expenses = {}", expensesEntities.size());
     }
 
     @Override
     public BigDecimal countAllExpenses() {
-        var loggedUser = userLogInfoService.getLoggedUserEntity();
+        var loggedUser = getLoggedUserEntity();
         return expensesRepository.countAllExpenses(loggedUser);
     }
 
     @Override
     public BigDecimal countExpensesForCategory(ExpensesCategory expensesCategory) {
-        return null;
+        var expensesEntity = expensesRepository.findAllByUserAndExpensesCategory(getLoggedUserEntity(), expensesCategory);
+
+        return BigDecimal.valueOf(expensesEntity.stream()
+                .map(ExpensesEntity::getAmount)
+                .count());
+    }
+
+    private UserEntity getLoggedUserEntity() {
+        return userLogInfoService.getLoggedUserEntity();
     }
 
 }
