@@ -2,11 +2,13 @@ package pl.dicedev.kakebo.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/expenses")
@@ -23,6 +25,13 @@ public class ExpensesController {
     @GetMapping("/counted")
     public BigDecimal getCountedExpenses() {
         return expensesService.countAllExpenses();
+    }
+
+    @GetMapping("/counted/category")
+    public BigDecimal getCountedExpensesByCategory(@RequestBody String category) {
+        return expensesService.countExpensesForCategory(
+                ExpensesCategory.valueOf(category.toUpperCase())
+        );
     }
 
 }
