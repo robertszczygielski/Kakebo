@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/migration/006-updateAssetAddIncomeDate.yaml
   - include:
       file: db/migration/007-addAssetCategoryInAssetTable.yaml
+  - include:
+      file: db/migration/008-addAssetCategoryInExpensesTable.yaml

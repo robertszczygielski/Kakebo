@@ -2,11 +2,11 @@ package pl.dicedev.kakebo.enums;
 
 public enum ExpensesCategory {
 
-    for_live(0),
-    education(1),
-    culture(1),
-    entertainment(2),
-    other(3);
+    FOR_LIVE(0),
+    EDUCATION(1),
+    CULTURE(1),
+    ENTERTAINMENT(2),
+    OTHER(3);
 
     private final Integer importance;
 
