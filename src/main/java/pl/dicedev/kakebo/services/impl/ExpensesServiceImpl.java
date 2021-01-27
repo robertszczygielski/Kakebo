@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
-import pl.dicedev.kakebo.repositories.entities.ExpensesEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
@@ -39,11 +38,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     @Override
     public BigDecimal countExpensesForCategory(ExpensesCategory expensesCategory) {
-        var expensesEntity = expensesRepository.findAllByUserAndExpensesCategory(getLoggedUserEntity(), expensesCategory);
-
-        return BigDecimal.valueOf(expensesEntity.stream()
-                .map(ExpensesEntity::getAmount)
-                .count());
+        return expensesRepository.countByUserAndExpensesCategory(getLoggedUserEntity(), expensesCategory);
     }
 
     private UserEntity getLoggedUserEntity() {
