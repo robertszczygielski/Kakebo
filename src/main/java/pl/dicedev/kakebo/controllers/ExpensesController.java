@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
+import static java.util.Arrays.asList;
+
 @RestController
 @RequestMapping("/expenses")
 @AllArgsConstructor
@@ -25,6 +27,11 @@ public class ExpensesController {
     @GetMapping("/counted")
     public BigDecimal getCountedExpenses() {
         return expensesService.countAllExpenses();
+    }
+
+    @GetMapping("/categories")
+    public List<ExpensesCategory> getAllExpensesCategories() {
+        return asList(ExpensesCategory.values());
     }
 
     @GetMapping("/counted/category")
