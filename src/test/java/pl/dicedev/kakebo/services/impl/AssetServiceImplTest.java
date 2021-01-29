@@ -12,6 +12,7 @@ import pl.dicedev.kakebo.repositories.entities.AssetEntity;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
+import pl.dicedev.kakebo.validators.AssetValidator;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,11 +32,13 @@ class AssetServiceImplTest {
     private AssetRepository assetRepository;
     @Mock
     private UserLogInfoService userLogInfoService;
+    @Mock
+    private AssetValidator assetValidator;
 
     @BeforeEach
     public void init() {
         var assetMapper = new AssetMapperImpl();
-        assetService = new AssetServiceImpl(assetRepository, assetMapper, userLogInfoService);
+        assetService = new AssetServiceImpl(assetRepository, assetMapper, userLogInfoService, assetValidator);
     }
 
     @Test
