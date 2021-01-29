@@ -25,7 +25,7 @@ public class AssetController {
     }
 
     @GetMapping("/{id}")
-    public AssetDto getInitAsset(@PathVariable("id") UUID id) {
+    public AssetDto getAssetById(@PathVariable("id") UUID id) {
         return assetService.findById(id);
     }
 

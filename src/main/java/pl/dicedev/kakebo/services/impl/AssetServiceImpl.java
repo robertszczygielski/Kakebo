@@ -7,6 +7,7 @@ import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
+import pl.dicedev.kakebo.validators.AssetValidator;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +20,13 @@ public class AssetServiceImpl implements AssetService {
     private final AssetRepository assetRepository;
     private final AssetMapper assetMapper;
     private final UserLogInfoService userLogInfoService;
+    private final AssetValidator assetValidator;
 
     @Override
     public UUID save(AssetDto assetDto) {
         log.info("Save Asset: {}", assetDto);
+
+        assetValidator.valid(assetDto);
 
         var entity = assetMapper.fromDtoToEntity(assetDto, userLogInfoService.getLoggedUserEntity());
         var saved = assetRepository.save(entity);
