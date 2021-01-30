@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.dicedev.kakebo.enums.AssetValidateMessage;
+import pl.dicedev.kakebo.exceptions.AssetValidationException;
 import pl.dicedev.kakebo.mappers.AssetMapperImpl;
 import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.repositories.entities.AssetEntity;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class AssetServiceImplTest {
@@ -32,12 +35,11 @@ class AssetServiceImplTest {
     private AssetRepository assetRepository;
     @Mock
     private UserLogInfoService userLogInfoService;
-    @Mock
-    private AssetValidator assetValidator;
 
     @BeforeEach
     public void init() {
         var assetMapper = new AssetMapperImpl();
+        var assetValidator = new AssetValidator();
         assetService = new AssetServiceImpl(assetRepository, assetMapper, userLogInfoService, assetValidator);
     }
 
@@ -111,6 +113,19 @@ class AssetServiceImplTest {
         // then
         assertThat(result.size()).isEqualTo(numberOfAssets);
 
+    }
+
+    @Test
+    void shouldThrowExceptionWhenThereAmountInAssetDtoIsNull() {
+        // given
+        var dto = new AssetDto();
+
+        // when
+        var result = assertThrows(AssetValidationException.class,
+                () -> assetService.save(dto));
+
+        // then
+        assertThat(result.getMessage()).isEqualTo(AssetValidateMessage.NO_ASSET.getMessage());
 
     }
 
