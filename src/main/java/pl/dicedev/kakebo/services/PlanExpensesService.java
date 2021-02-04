@@ -4,6 +4,6 @@ import pl.dicedev.kakebo.services.dtos.PlanExpensesDto;
 
 public interface PlanExpensesService {
 
-    public void addPlanExpenses(PlanExpensesDto planExpensesDto);
+    void addPlanExpenses(PlanExpensesDto planExpensesDto);
 
 }
