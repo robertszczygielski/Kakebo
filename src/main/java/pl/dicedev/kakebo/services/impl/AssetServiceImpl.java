@@ -29,7 +29,6 @@ public class AssetServiceImpl implements AssetService {
 
         assetValidator.valid(assetDto);
 
-        Instant.now();
         var entity = assetMapper.fromDtoToEntity(assetDto, userLogInfoService.getLoggedUserEntity());
         var saved = assetRepository.save(entity);
         log.info("Saved Asset: {}", saved);
