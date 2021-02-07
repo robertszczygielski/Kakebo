@@ -9,6 +9,7 @@ import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 import pl.dicedev.kakebo.validators.AssetValidator;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class AssetServiceImpl implements AssetService {
 
         assetValidator.valid(assetDto);
 
+        Instant.now();
         var entity = assetMapper.fromDtoToEntity(assetDto, userLogInfoService.getLoggedUserEntity());
         var saved = assetRepository.save(entity);
         log.info("Saved Asset: {}", saved);
