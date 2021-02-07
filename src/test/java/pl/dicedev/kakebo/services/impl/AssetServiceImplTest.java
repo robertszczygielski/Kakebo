@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.dicedev.kakebo.enums.AssetCategory;
 import pl.dicedev.kakebo.enums.AssetValidateMessage;
 import pl.dicedev.kakebo.exceptions.AssetValidationException;
 import pl.dicedev.kakebo.mappers.AssetMapperImpl;
@@ -17,6 +18,7 @@ import pl.dicedev.kakebo.services.dtos.AssetDto;
 import pl.dicedev.kakebo.validators.AssetValidator;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +48,7 @@ class AssetServiceImplTest {
     @Test
     void shouldCallSave() {
         // given
+        var incomeDate = Instant.now();
         var userId = UUID.randomUUID();
         var dto = new AssetDto();
         var entity = new AssetEntity();
@@ -53,11 +56,18 @@ class AssetServiceImplTest {
         var userEntity = new UserEntity();
 
         dto.setAmount(BigDecimal.ONE);
+        dto.setIncomeDate(incomeDate);
+
         entityFromDto.setAmount(BigDecimal.ONE);
         entityFromDto.setUser(userEntity);
+        entityFromDto.setIncomeDate(incomeDate);
+        entityFromDto.setAssetCategory(AssetCategory.OTHER);
         userEntity.setId(userId);
+
         entity.setId(UUID.randomUUID());
         entity.setUser(userEntity);
+        entity.setIncomeDate(incomeDate);
+        entity.setAssetCategory(AssetCategory.OTHER);
 
         Mockito.when(assetRepository.save(entityFromDto)).thenReturn(entity);
         Mockito.when(userLogInfoService.getLoggedUserEntity()).thenReturn(userEntity);

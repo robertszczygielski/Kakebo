@@ -5,7 +5,8 @@ public enum AssetCategory {
     SALARY("reliable"),
     BONUS("extra"),
     LOAN_RETURNED("extra"),
-    RENT("reliable");
+    RENT("reliable"),
+    OTHER("do not know");
 
     private final String typeOfIncome;
 
