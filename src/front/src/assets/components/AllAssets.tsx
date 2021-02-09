@@ -7,32 +7,17 @@ interface IAsset {
     amount: number;
 }
 
-interface IAssetCategory {
-    id: string;
-    category: string;
-}
-
 const AllAssets: React.FC = () => {
     const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
-    const [assetsCategories, setAssetsCategories] = useState<Array<IAssetCategory | null> | null>([]);
 
     useEffect(() => {
         findAllAssets();
-        findAllAssetsCategories();
     }, [])
 
     const findAllAssets = () => {
         getAllAssets().then((data: any) => {
             const assets: Array<IAsset | null> = data;
             setAssets(assets);
-        })
-    }
-
-    const findAllAssetsCategories = () => {
-        getAllAssetsCategories().then((data: any) => {
-            const assetsCategory: Array<IAssetCategory | null> = data;
-            console.log(assetsCategory);
-            setAssetsCategories(assetsCategory);
         })
     }
 
