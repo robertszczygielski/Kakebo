@@ -1,15 +1,36 @@
 import * as React from 'react';
 import { Field, Form, Formik } from 'formik';
-import { setAsset } from "../api/AssetApi";
+import { getAllAssetsCategories, setAsset } from "../api/AssetApi";
+import { useEffect, useState } from "react";
 
 interface IAsset {
     asset: number;
 }
 
+interface IAssetCategory {
+    id: string;
+    category: string;
+}
+
 export const AssetForm: React.FC = () => {
+    const [assetsCategories, setAssetsCategories] = useState<Array<IAssetCategory | null> | null>([]);
+
     const initialValues: IAsset = {
         asset: 0,
     };
+
+    useEffect(() => {
+        findAllAssetsCategories();
+    }, [])
+
+
+    const findAllAssetsCategories = () => {
+        getAllAssetsCategories().then((data: any) => {
+            const assetsCategory: Array<IAssetCategory | null> = data;
+            console.log(assetsCategory);
+            setAssetsCategories(assetsCategory);
+        })
+    }
 
     const submitHandler = (values: any) => {
         setAsset(values.asset);
