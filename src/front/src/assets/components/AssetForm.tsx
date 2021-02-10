@@ -8,12 +8,12 @@ interface IAsset {
 }
 
 interface IAssetCategory {
-    id: string;
     category: string;
 }
 
 export const AssetForm: React.FC = () => {
     const [assetsCategories, setAssetsCategories] = useState<Array<IAssetCategory | null> | null>([]);
+    const category = ["SALARY", "BONUS", "LOAN_RETURNED", "RENT", "OTHER"];
 
     const initialValues: IAsset = {
         asset: 0,
@@ -29,6 +29,7 @@ export const AssetForm: React.FC = () => {
             const assetsCategory: Array<IAssetCategory | null> = data;
             console.log(assetsCategory);
             setAssetsCategories(assetsCategory);
+            console.log(assetsCategories);
         })
     }
 
@@ -45,6 +46,11 @@ export const AssetForm: React.FC = () => {
             >
                 <Form>
                     <Field type="text" id="asset" name="asset" placeholder="0"/>
+                    <Field as="select" id="assetCategory">
+                        {category?.map(assetsCategory =>(
+                            <option value={assetsCategory}>{assetsCategory}</option>
+                        ))}
+                    </Field>
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
