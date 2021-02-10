@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAssets, getAllAssetsCategories } from "../api/AssetApi";
+import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface IAsset {
