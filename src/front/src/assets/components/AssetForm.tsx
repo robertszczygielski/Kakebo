@@ -8,12 +8,14 @@ interface IAsset {
 }
 
 interface IAssetCategory {
-    category: string;
+    id: number;
+    name: string;
 }
 
 export const AssetForm: React.FC = () => {
-    const [assetsCategories, setAssetsCategories] = useState<Array<IAssetCategory | null> | null>([]);
-    const category = ["SALARY", "BONUS", "LOAN_RETURNED", "RENT", "OTHER"];
+    const [assetsCategories, setAssetsCategories] = useState<Array<string>>(
+        ["SALARY", "BONUS", "LOAN_RETURNED", "RENT", "OTHER"]
+    );
 
     const initialValues: IAsset = {
         asset: 0,
@@ -28,7 +30,8 @@ export const AssetForm: React.FC = () => {
         getAllAssetsCategories().then((data: any) => {
             const assetsCategory: Array<IAssetCategory | null> = data;
             console.log(assetsCategory);
-            setAssetsCategories(assetsCategory);
+            assetsCategory.map(it => console.log(it));
+            setAssetsCategories([...assetsCategories]);
             console.log(assetsCategories);
         })
     }
@@ -47,7 +50,7 @@ export const AssetForm: React.FC = () => {
                 <Form>
                     <Field type="text" id="asset" name="asset" placeholder="0"/>
                     <Field as="select" id="assetCategory">
-                        {category?.map(assetsCategory =>(
+                        {assetsCategories?.map(assetsCategory =>(
                             <option value={assetsCategory}>{assetsCategory}</option>
                         ))}
                     </Field>
