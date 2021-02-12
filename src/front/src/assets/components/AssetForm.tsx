@@ -7,14 +7,9 @@ interface IAsset {
     asset: number;
 }
 
-interface IAssetCategory {
-    id: number;
-    name: string;
-}
-
 export const AssetForm: React.FC = () => {
     const [assetsCategories, setAssetsCategories] = useState<Array<string>>(
-        ["SALARY", "BONUS", "LOAN_RETURNED", "RENT", "OTHER"]
+        []
     );
 
     const initialValues: IAsset = {
@@ -28,11 +23,8 @@ export const AssetForm: React.FC = () => {
 
     const findAllAssetsCategories = () => {
         getAllAssetsCategories().then((data: any) => {
-            const assetsCategory: Array<IAssetCategory | null> = data;
-            console.log(assetsCategory);
-            assetsCategory.map(it => console.log(it));
-            setAssetsCategories([...assetsCategories]);
-            console.log(assetsCategories);
+            const assetsCategory: Array<string> = data;
+            setAssetsCategories([...assetsCategory]);
         })
     }
 
