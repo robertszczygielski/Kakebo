@@ -13,8 +13,8 @@ export const getAllAssetsCategories: any = () => {
         .catch(err => console.error(err))
 }
 
-export const setAsset: any = (value: number) => {
-    return axios.post(ASSETS_URI, {"amount": value})
+export const setAsset: any = (value: number, assetCategory: string) => {
+    return axios.post(ASSETS_URI, {"amount": value, "assetCategory": assetCategory})
         .then((rest) => { return rest.data })
         .catch(err => console.error(err))
 }

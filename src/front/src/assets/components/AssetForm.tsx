@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 interface IAsset {
     asset: number;
+    assetCategory: string;
 }
 
 export const AssetForm: React.FC = () => {
@@ -14,6 +15,7 @@ export const AssetForm: React.FC = () => {
 
     const initialValues: IAsset = {
         asset: 0,
+        assetCategory: "",
     };
 
     useEffect(() => {
@@ -28,8 +30,10 @@ export const AssetForm: React.FC = () => {
         })
     }
 
-    const submitHandler = (values: any) => {
-        setAsset(values.asset);
+    const submitHandler = (values: any, {resetForm}: any) => {
+        setAsset(values.asset, values.assetCategory).then(() => {
+            resetForm({initialValues});
+        });
     }
 
     return (
@@ -41,7 +45,7 @@ export const AssetForm: React.FC = () => {
             >
                 <Form>
                     <Field type="text" id="asset" name="asset" placeholder="0"/>
-                    <Field as="select" id="assetCategory">
+                    <Field as="select" id="assetCategory" name="assetCategory">
                         {assetsCategories?.map(assetsCategory =>(
                             <option value={assetsCategory}>{assetsCategory}</option>
                         ))}
