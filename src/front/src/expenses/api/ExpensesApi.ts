@@ -15,6 +15,14 @@ export const getCountedExpenses: any = () => {
         .catch(err => console.error(err))
 }
 
+export const getAllAssetsCategories: any = () => {
+    return axios.get(EXPENSES_URI + "categories")
+        .then((rest) => {
+            return rest.data
+        })
+        .catch(err => console.error(err))
+}
+
 export const setExpenses: any = (expenses: IExpenses[]) => {
     return axios.post(EXPENSES_URI, expenses)
         .then((rest) => {
