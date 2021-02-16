@@ -15,7 +15,7 @@ export const getCountedExpenses: any = () => {
         .catch(err => console.error(err))
 }
 
-export const getAllAssetsCategories: any = () => {
+export const getAllExpensesCategories: any = () => {
     return axios.get(EXPENSES_URI + "categories")
         .then((rest) => {
             return rest.data

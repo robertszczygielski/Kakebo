@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { Field, Form, Formik } from 'formik';
-import { IExpenses, setExpenses } from "../api/ExpensesApi";
+import { getAllExpensesCategories, IExpenses, setExpenses } from "../api/ExpensesApi";
 import CountedExpenses from "./CountedExpenses";
 
 export const ExpensesForm: React.FC = () => {
@@ -8,6 +9,17 @@ export const ExpensesForm: React.FC = () => {
         amount: 0,
         expensesDate: new Date(),
     };
+
+    useEffect(() => {
+        findAllExpensesCategories();
+    }, [])
+
+    const findAllExpensesCategories = () => {
+        getAllExpensesCategories().then((data: any) => {
+            const expensesCategories: Array<string> = data;
+            console.log(expensesCategories);
+        })
+    }
 
     const submitHandler = (values: IExpenses) => {
         setExpenses([values]);
