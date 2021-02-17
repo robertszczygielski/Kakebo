@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { getAllExpensesCategories, IExpenses, setExpenses } from "../api/ExpensesApi";
 import CountedExpenses from "./CountedExpenses";
 
 export const ExpensesForm: React.FC = () => {
+    const [expensesCategories, setExpensesCategories] = useState<Array<string>>(
+        []
+    );
     const initialValues: IExpenses = {
         amount: 0,
         expensesDate: new Date(),
@@ -18,6 +21,7 @@ export const ExpensesForm: React.FC = () => {
         getAllExpensesCategories().then((data: any) => {
             const expensesCategories: Array<string> = data;
             console.log(expensesCategories);
+            setExpensesCategories([...expensesCategories]);
         })
     }
 
