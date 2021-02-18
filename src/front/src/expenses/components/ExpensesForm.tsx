@@ -20,7 +20,6 @@ export const ExpensesForm: React.FC = () => {
     const findAllExpensesCategories = () => {
         getAllExpensesCategories().then((data: any) => {
             const expensesCategories: Array<string> = data;
-            console.log(expensesCategories);
             setExpensesCategories([...expensesCategories]);
         })
     }
@@ -39,6 +38,11 @@ export const ExpensesForm: React.FC = () => {
             >
                 <Form>
                     <Field type="text" id="amount" name="amount" placeholder="0"/>
+                    <Field as="select" id="assetCategory" name="assetCategory">
+                        {expensesCategories?.map(expensesCategory =>(
+                            <option value={expensesCategory}>{expensesCategory}</option>
+                        ))}
+                    </Field>
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
