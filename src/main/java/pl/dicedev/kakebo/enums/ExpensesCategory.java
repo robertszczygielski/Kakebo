@@ -1,5 +1,8 @@
 package pl.dicedev.kakebo.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum ExpensesCategory {
 
     FOR_LIVE(0),
