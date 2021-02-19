@@ -11,6 +11,7 @@ export const ExpensesForm: React.FC = () => {
     const initialValues: IExpenses = {
         amount: 0,
         expensesDate: new Date(),
+        expensesCategory: "FOR_LIVE",
     };
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export const ExpensesForm: React.FC = () => {
             >
                 <Form>
                     <Field type="text" id="amount" name="amount" placeholder="0"/>
-                    <Field as="select" id="assetCategory" name="assetCategory">
+                    <Field as="select" id="expensesCategory" name="expensesCategory">
                         {expensesCategories?.map(expensesCategory =>(
                             <option value={expensesCategory}>{expensesCategory}</option>
                         ))}

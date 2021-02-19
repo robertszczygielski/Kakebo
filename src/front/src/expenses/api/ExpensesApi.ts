@@ -5,6 +5,7 @@ import { EXPENSES_URI } from "../../api/main";
 export interface IExpenses {
     amount: number;
     expensesDate: Date;
+    expensesCategory: string;
 }
 
 export const getCountedExpenses: any = () => {
