@@ -6,7 +6,9 @@ import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
+import javax.websocket.server.PathParam;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +41,11 @@ public class ExpensesController {
         return expensesService.countExpensesForCategory(
                 ExpensesCategory.valueOf(category.toUpperCase())
         );
+    }
+
+    @GetMapping("/find")
+    public List<ExpensesDto> getExpensesByCategory(@PathParam("category") String category) {
+        return Collections.singletonList(new ExpensesDto());
     }
 
 }
