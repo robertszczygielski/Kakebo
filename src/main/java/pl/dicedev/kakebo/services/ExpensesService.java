@@ -14,4 +14,6 @@ public interface ExpensesService {
 
     BigDecimal countExpensesForCategory(ExpensesCategory expensesCategory);
 
+    List<ExpensesDto> getExpensesByCategory(String category);
+
 }

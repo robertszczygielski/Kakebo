@@ -45,7 +45,7 @@ public class ExpensesController {
 
     @GetMapping("/find")
     public List<ExpensesDto> getExpensesByCategory(@PathParam("category") String category) {
-        return Collections.singletonList(new ExpensesDto());
+        return expensesService.getExpensesByCategory(category);
     }
 
 }
