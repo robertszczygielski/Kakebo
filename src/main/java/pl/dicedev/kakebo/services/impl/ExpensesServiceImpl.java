@@ -41,6 +41,11 @@ public class ExpensesServiceImpl implements ExpensesService {
         return expensesRepository.countByUserAndExpensesCategory(getLoggedUserEntity(), expensesCategory);
     }
 
+    @Override
+    public List<ExpensesDto> getExpensesByCategory(String category) {
+        return null;
+    }
+
     private UserEntity getLoggedUserEntity() {
         return userLogInfoService.getLoggedUserEntity();
     }
