@@ -20,4 +20,10 @@ public class ExpensesMapper {
                 .map(it -> expensesSingleMapper.fromDtoToEntities(it, userEntity))
                 .collect(Collectors.toList());
     }
+
+    public List<ExpensesDto> fromEntitiesToDtos(List<ExpensesEntity> entities) {
+        return entities.stream()
+                .map(expensesSingleMapper::formEntitiesToDto)
+                .collect(Collectors.toList());
+    }
 }

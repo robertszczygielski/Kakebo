@@ -16,4 +16,6 @@ public interface ExpensesSingleMapper {
     @Mapping(source = "dto.expensesCategory", target = "expensesCategory")
     ExpensesEntity fromDtoToEntities(ExpensesDto dto, UserEntity userEntity);
 
+    ExpensesDto formEntitiesToDto(ExpensesEntity entity);
+
 }
