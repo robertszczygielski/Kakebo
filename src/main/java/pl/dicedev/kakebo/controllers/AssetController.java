@@ -43,6 +43,6 @@ public class AssetController {
 
     @GetMapping("/find")
     public List<AssetDto> getExpensesByCategory(@PathParam("category") String category) {
-        return null;
+        return assetService.getExpensesByCategory(category);
     }
 }

@@ -5,14 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
-import pl.dicedev.kakebo.repositories.entities.AssetEntity;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 import pl.dicedev.kakebo.validators.AssetValidator;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -50,5 +48,10 @@ public class AssetServiceImpl implements AssetService {
     public List<AssetDto> findAll() {
         log.info("Find all assets");
         return assetMapper.fromEntityToDto(assetRepository.findAll());
+    }
+
+    @Override
+    public List<AssetDto> getExpensesByCategory(String category) {
+        return null;
     }
 }
