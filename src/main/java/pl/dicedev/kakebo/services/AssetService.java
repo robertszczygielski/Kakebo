@@ -13,5 +13,5 @@ public interface AssetService {
 
     List<AssetDto> findAll();
 
-    List<AssetDto> getExpensesByCategory(String category);
+    List<AssetDto> getAssetByCategory(String category);
 }

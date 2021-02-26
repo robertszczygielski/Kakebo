@@ -3,6 +3,7 @@ package pl.dicedev.kakebo.services.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.enums.AssetCategory;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
 import pl.dicedev.kakebo.services.AssetService;
@@ -11,6 +12,7 @@ import pl.dicedev.kakebo.validators.AssetValidator;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -51,7 +53,11 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public List<AssetDto> getExpensesByCategory(String category) {
-        return null;
+    public List<AssetDto> getAssetByCategory(String category) {
+        return assetRepository.getAssetEntitiesByAssetCategory(
+                AssetCategory.valueOf(category.toUpperCase()))
+                .stream()
+                .map(assetMapper::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 }

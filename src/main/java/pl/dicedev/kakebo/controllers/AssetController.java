@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.dicedev.kakebo.enums.AssetCategory;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
-import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
 import javax.websocket.server.PathParam;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +41,6 @@ public class AssetController {
 
     @GetMapping("/find")
     public List<AssetDto> getExpensesByCategory(@PathParam("category") String category) {
-        return assetService.getExpensesByCategory(category);
+        return assetService.getAssetByCategory(category);
     }
 }
