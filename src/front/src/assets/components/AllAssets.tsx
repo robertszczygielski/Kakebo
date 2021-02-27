@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 interface IAsset {
     id: string;
     amount: number;
+    assetCategory: string;
 }
 
 const AllAssets: React.FC = () => {
@@ -25,7 +26,7 @@ const AllAssets: React.FC = () => {
         <div>
             <ul>
                 {assets?.map(asset => (
-                    <li key={asset?.id}>{asset?.amount}</li>
+                    <li key={asset?.id}>{asset?.amount} - {asset?.assetCategory}</li>
                 ))}
             </ul>
         </div>
