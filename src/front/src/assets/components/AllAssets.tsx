@@ -6,6 +6,7 @@ interface IAsset {
     id: string;
     amount: number;
     assetCategory: string;
+    incomeDate: string
 }
 
 const AllAssets: React.FC = () => {
@@ -26,7 +27,7 @@ const AllAssets: React.FC = () => {
         <div>
             <ul>
                 {assets?.map(asset => (
-                    <li key={asset?.id}>{asset?.amount} - {asset?.assetCategory}</li>
+                    <li key={asset?.id}>{asset?.amount} - {asset?.assetCategory} - {asset?.incomeDate}</li>
                 ))}
             </ul>
         </div>
