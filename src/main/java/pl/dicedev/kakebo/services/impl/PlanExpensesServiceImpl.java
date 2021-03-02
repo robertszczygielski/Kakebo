@@ -8,6 +8,8 @@ import pl.dicedev.kakebo.repositories.entities.PlanExpensesEntity;
 import pl.dicedev.kakebo.services.PlanExpensesService;
 import pl.dicedev.kakebo.services.dtos.PlanExpensesDto;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PlanExpensesServiceImpl implements PlanExpensesService {
@@ -20,5 +22,10 @@ public class PlanExpensesServiceImpl implements PlanExpensesService {
         PlanExpensesEntity planExpensesEntity = planExpensesMapper.fromDtoToEntities(planExpensesDto);
 
         planExpensesRepository.save(planExpensesEntity);
+    }
+
+    @Override
+    public List<PlanExpensesDto> getPlanExpenses() {
+        return null;
     }
 }
