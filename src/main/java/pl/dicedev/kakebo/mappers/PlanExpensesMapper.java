@@ -9,4 +9,5 @@ public interface PlanExpensesMapper {
 
     PlanExpensesEntity fromDtoToEntities(PlanExpensesDto dto);
 
+    PlanExpensesDto fromEntityToDto(PlanExpensesEntity entity);
 }

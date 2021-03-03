@@ -9,6 +9,7 @@ import pl.dicedev.kakebo.services.PlanExpensesService;
 import pl.dicedev.kakebo.services.dtos.PlanExpensesDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,6 +27,10 @@ public class PlanExpensesServiceImpl implements PlanExpensesService {
 
     @Override
     public List<PlanExpensesDto> getPlanExpenses() {
-        return null;
+        return planExpensesRepository.findAll()
+                .stream()
+                .map(planExpensesMapper::fromEntityToDto)
+                .collect(Collectors.toList());
+
     }
 }
