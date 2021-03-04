@@ -7,12 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.dicedev.kakebo.services.PlanExpensesService;
 import pl.dicedev.kakebo.services.dtos.PlanExpensesDto;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/plan/expenses")
 @AllArgsConstructor
 public class PlanExpensesController {
 
     private final PlanExpensesService planExpensesService;
+
+    public List<PlanExpensesDto> getPlanExpenses() {
+        return planExpensesService.getPlanExpenses();
+    }
 
     @PostMapping
     public void addPlanExpenses(PlanExpensesDto planExpensesDto) {
