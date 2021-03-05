@@ -22,6 +22,7 @@ public class PlanExpensesController {
 
     @GetMapping
     public  List<PlanExpensesDto> getPlanExpensesByCategory(@PathParam("category") String category) {
+        // return planExpensesService.getPlanExpensesByCategory();
         return null;
     }
 
