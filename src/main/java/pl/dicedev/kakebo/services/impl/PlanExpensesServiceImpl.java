@@ -33,4 +33,9 @@ public class PlanExpensesServiceImpl implements PlanExpensesService {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public List<PlanExpensesDto> getPlanExpensesByCategory(String category) {
+        return null;
+    }
 }
