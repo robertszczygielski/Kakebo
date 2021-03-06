@@ -10,4 +10,5 @@ public interface PlanExpensesService {
 
     List<PlanExpensesDto>  getPlanExpenses();
 
+    List<PlanExpensesDto> getPlanExpensesByCategory(String category);
 }
