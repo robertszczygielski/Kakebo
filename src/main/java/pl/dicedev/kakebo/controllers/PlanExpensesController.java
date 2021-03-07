@@ -9,7 +9,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/plan/expenses")
+@RequestMapping("/expenses/plan")
 @AllArgsConstructor
 public class PlanExpensesController {
 
@@ -20,7 +20,7 @@ public class PlanExpensesController {
         return planExpensesService.getPlanExpenses();
     }
 
-    @GetMapping
+    @GetMapping("/find")
     public  List<PlanExpensesDto> getPlanExpensesByCategory(@PathParam("category") String category) {
         return planExpensesService.getPlanExpensesByCategory(category);
     }
