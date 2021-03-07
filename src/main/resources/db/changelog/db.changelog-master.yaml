@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/migration/007-addAssetCategoryInAssetTable.yaml
   - include:
       file: db/migration/008-addAssetCategoryInExpensesTable.yaml
+  - include:
+      file: db/migration/009-expensesPlanSchema.yaml
