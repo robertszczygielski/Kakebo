@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
-public class PlanExpensesDto {
+public class ExpensesPlanDto {
 
     private UUID id;
     private ExpensesCategory expensesCategory;
