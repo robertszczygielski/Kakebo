@@ -8,6 +8,7 @@ import pl.dicedev.kakebo.repositories.entities.ExpensesPlanEntity;
 import pl.dicedev.kakebo.services.ExpensesPlanService;
 import pl.dicedev.kakebo.services.dtos.ExpensesPlanDto;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,6 @@ public class ExpensesPlanServiceImpl implements ExpensesPlanService {
 
     @Override
     public List<ExpensesPlanDto> getExpensesPlanByCategory(String category) {
-        return null;
+        return Collections.emptyList();
     }
 }
