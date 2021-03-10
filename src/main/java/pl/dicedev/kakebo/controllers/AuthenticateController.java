@@ -33,12 +33,12 @@ public class AuthenticateController {
         return HttpStatus.NO_CONTENT;
     }
 
-    @PostMapping("/create-user")
+    @PostMapping("/user/create")
     public UUID createUser(@Valid @RequestBody AuthUserDto authUserDto) {
         return userService.saveUser(authUserDto);
     }
 
-    @DeleteMapping("/delete-user")
+    @DeleteMapping("/user/delete")
     public void deleteUser(@Valid @RequestBody AuthUserDto authUserDto) {
         userService.deleteUser(authUserDto);
     }
