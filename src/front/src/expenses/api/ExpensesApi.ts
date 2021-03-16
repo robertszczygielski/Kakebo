@@ -42,3 +42,11 @@ export const setExpenses: any = (expenses: IExpenses[]) => {
         })
         .catch(err => console.error(err))
 }
+
+export const setExpensesPlan: any = (expenses: IExpensesPlan[]) => {
+    return axios.post(EXPENSES_PLAN_URI, expenses)
+        .then((rest) => {
+            return rest.data
+        })
+        .catch(err => console.error(err))
+}
