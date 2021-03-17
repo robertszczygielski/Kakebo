@@ -7,6 +7,7 @@ import { AssetForm } from "../assets/components/AssetForm";
 import { RegisterBasic } from "../auth/register/Register";
 import { Loguot } from "../auth/loguot/Loguot";
 import { ExpensesForm } from "../expenses/components/ExpensesForm";
+import { ExpensesPlanForm } from "../expenses/components/ExpensesPlanForm";
 
 export class RootRouter extends React.Component {
     render() {
@@ -42,6 +43,9 @@ export class RootRouter extends React.Component {
                         </Route>
                         <Route path="/expenses">
                             <ExpensesForm/>
+                        </Route>
+                        <Route path="/expenses/plan">
+                            <ExpensesPlanForm/>
                         </Route>
                         <Route path="/logout">
                             <Loguot/>
