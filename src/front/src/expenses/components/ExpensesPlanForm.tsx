@@ -31,7 +31,7 @@ export const ExpensesPlanForm: React.FC = () => {
     return (
         <div>
             <CountedExpenses/>
-            <h1>Set Expenses</h1>
+            <h1>Set Expenses Plan</h1>
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}
