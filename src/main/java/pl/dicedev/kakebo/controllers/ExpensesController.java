@@ -21,6 +21,10 @@ public class ExpensesController {
 
     private final ExpensesService expensesService;
 
+    public List<ExpensesDto> getAllExpenses() {
+        return null;
+    }
+
     @PostMapping
     public void setExpenses(@RequestBody List<ExpensesDto> expenses) {
         expensesService.saveExpenses(expenses);
