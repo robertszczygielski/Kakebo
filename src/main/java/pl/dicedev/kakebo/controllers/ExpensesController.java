@@ -21,8 +21,9 @@ public class ExpensesController {
 
     private final ExpensesService expensesService;
 
+    @GetMapping
     public List<ExpensesDto> getAllExpenses() {
-        return null;
+        return expensesService.getAllExpenses();
     }
 
     @PostMapping

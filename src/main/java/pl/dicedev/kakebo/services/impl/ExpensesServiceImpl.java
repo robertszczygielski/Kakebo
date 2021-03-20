@@ -49,6 +49,11 @@ public class ExpensesServiceImpl implements ExpensesService {
         return expensesMapper.fromEntitiesToDtos(entities);
     }
 
+    @Override
+    public List<ExpensesDto> getAllExpenses() {
+        return null;
+    }
+
     private UserEntity getLoggedUserEntity() {
         return userLogInfoService.getLoggedUserEntity();
     }
