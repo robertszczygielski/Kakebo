@@ -16,4 +16,5 @@ public interface ExpensesService {
 
     List<ExpensesDto> getExpensesByCategory(String category);
 
+    List<ExpensesDto> getAllExpenses();
 }
