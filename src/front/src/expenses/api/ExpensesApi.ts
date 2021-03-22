@@ -27,6 +27,14 @@ export const getExpensesPlan: any = () => {
         .catch(err => console.error(err))
 }
 
+export const getAllExpenses: any = () => {
+    return axios.get(EXPENSES_URI)
+        .then((rest) => {rest.data})
+        .catch(err => console.error(err))
+}
+
+
+
 export const getAllExpensesCategories: any = () => {
     return axios.get(EXPENSES_URI + "categories")
         .then((rest) => {
