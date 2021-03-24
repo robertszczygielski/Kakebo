@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesPlanMapper;
 import pl.dicedev.kakebo.mappers.ExpensesPlanMapperImpl;
 import pl.dicedev.kakebo.repositories.ExpensesPlanRepository;
@@ -14,7 +15,8 @@ import pl.dicedev.kakebo.services.ExpensesPlanService;
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +34,7 @@ class ExpensesPlanServiceImplTest {
     }
 
     @Test
-    void shouldGetAllExpensesPlan() {
+    void shouldGetOneExpensesPlanIfInDatabaseIsOnePlane() {
         // given
         List<ExpensesPlanEntity> allEntities = Collections.singletonList(new ExpensesPlanEntity());
         when(expensesPlanRepository.findAll()).thenReturn(allEntities);
@@ -41,7 +43,32 @@ class ExpensesPlanServiceImplTest {
         var result = expensesPlanService.getExpensesPlan();
 
         // then
-        assertThat(result.size()).isEqualTo(1);
+        assertThat(result).hasSize(1);
 
+    }
+
+    @Test
+    void shouldReturnOneExpensesPlanByCategory() {
+        // given
+        var category = ExpensesCategory.FOR_LIVE.name();
+        List<ExpensesPlanEntity> allEntities = prepareExpensesPlanEntities();
+
+        when(expensesPlanRepository.findAll()).thenReturn(allEntities);
+
+        // when
+        var result = expensesPlanService.getExpensesPlanByCategory(category);
+
+        // then
+        assertThat(result).hasSize(1);
+    }
+
+    private List<ExpensesPlanEntity> prepareExpensesPlanEntities() {
+        var expensesPlanEntity1 = new ExpensesPlanEntity();
+        expensesPlanEntity1.setExpensesCategory(ExpensesCategory.FOR_LIVE);
+
+        var expensesPlanEntity2 = new ExpensesPlanEntity();
+        expensesPlanEntity2.setExpensesCategory(ExpensesCategory.OTHER);
+
+        return asList(expensesPlanEntity1, expensesPlanEntity2);
     }
 }
