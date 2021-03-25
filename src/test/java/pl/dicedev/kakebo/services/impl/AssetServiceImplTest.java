@@ -139,6 +139,19 @@ class AssetServiceImplTest {
 
     }
 
+    @Test
+    void shouldVerifyIfAssetRepositoryCalledGetAssetEntitiesByAssetCategoryOneTime() {
+        // given
+        var category = AssetCategory.OTHER.name();
+
+        // when
+        assetService.getAssetByCategory(category);
+
+        // then
+        Mockito.verify(assetRepository, Mockito.times(1))
+                .getAssetEntitiesByAssetCategory(AssetCategory.OTHER);
+    }
+
     private List<AssetEntity> prepareAssetEntities(int numberOfAssets) {
         return IntStream.range(0, numberOfAssets)
                 .mapToObj(it -> {
