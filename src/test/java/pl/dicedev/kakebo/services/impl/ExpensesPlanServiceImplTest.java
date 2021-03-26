@@ -11,13 +11,15 @@ import pl.dicedev.kakebo.mappers.ExpensesPlanMapperImpl;
 import pl.dicedev.kakebo.repositories.ExpensesPlanRepository;
 import pl.dicedev.kakebo.repositories.entities.ExpensesPlanEntity;
 import pl.dicedev.kakebo.services.ExpensesPlanService;
+import pl.dicedev.kakebo.services.dtos.ExpensesPlanDto;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExpensesPlanServiceImplTest {
@@ -60,6 +62,22 @@ class ExpensesPlanServiceImplTest {
 
         // then
         assertThat(result).hasSize(1);
+    }
+
+    @Test
+    void shouldVerifyIfRepositorySaveWasCalled() {
+        // given
+        ExpensesPlanEntity expensesPlanEntity = new ExpensesPlanEntity();
+        expensesPlanEntity.setAmount(BigDecimal.ONE);
+
+        ExpensesPlanDto expensesPlanDto = new ExpensesPlanDto();
+        expensesPlanDto.setAmount(BigDecimal.ONE);
+
+        // when
+        expensesPlanService.addExpensesPlan(expensesPlanDto);
+
+        // then
+        verify(expensesPlanRepository).save(expensesPlanEntity);
     }
 
     private List<ExpensesPlanEntity> prepareExpensesPlanEntities() {
