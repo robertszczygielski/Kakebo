@@ -45,7 +45,7 @@ class AuthenticationServiceTest {
         var expectedTokenHeader = "eyJhbGciOiJIUzI1NiJ9";
         var username = "user";
         var password = "passwd";
-        var id = UUID.randomUUID();
+        var id = UUID.fromString("b14975ea-105a-43b9-9b24-7aeff26ec8c0");
         var authUserDto = new AuthUserDto(null, username, password);
         var userDetails = UserBto.builder()
                 .username(username)

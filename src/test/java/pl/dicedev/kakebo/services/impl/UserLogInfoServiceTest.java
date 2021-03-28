@@ -1,5 +1,6 @@
 package pl.dicedev.kakebo.services.impl;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,11 @@ import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.security.UserDetailsRepository;
 import pl.dicedev.kakebo.security.bto.UserBto;
 import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
-import pl.dicedev.kakebo.services.dtos.AssetDto;
 
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
 import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.USER_NOT_EXISTS;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,9 +31,6 @@ class UserLogInfoServiceTest {
     private UserDetailsRepository userDetailsRepository;
 
     @Mock
-    private Authentication authentication;
-
-    @Mock
     private SecurityContext securityContext;
 
     @BeforeEach
@@ -42,11 +38,17 @@ class UserLogInfoServiceTest {
         userLogInfoService = new UserLogInfoService(userDetailsRepository);
     }
 
+    @AfterEach
+    public void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
+    }
+
     @Test
     void shouldThrowExceptionWhenUserIsNotFound() {
         // given
         var userId = UUID.randomUUID();
         var userBto = UserBto.builder().id(userId).build();
+        Authentication authentication = Mockito.mock(Authentication.class);
 
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
@@ -67,6 +69,7 @@ class UserLogInfoServiceTest {
         // given
         var userId = UUID.randomUUID();
         var userBto = UserBto.builder().id(userId).build();
+        Authentication authentication = Mockito.mock(Authentication.class);
 
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
