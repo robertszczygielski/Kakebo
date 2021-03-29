@@ -15,12 +15,14 @@ import pl.dicedev.kakebo.services.ExpensesService;
 import pl.dicedev.kakebo.services.dtos.ExpensesDto;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.mockito.Mockito.mock;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ExpensesServicesImplTest {
@@ -56,6 +58,26 @@ public class ExpensesServicesImplTest {
 
         // then
         Mockito.verify(expensesRepository).saveAll(expectedEntities);
+    }
+
+    @Test
+    void shouldReturnDtoListMappedFromAllExpensesFindInDatabase() {
+        // given
+        UUID expensesId = UUID.randomUUID();
+        ExpensesEntity entity = new ExpensesEntity();
+        entity.setAmount(BigDecimal.ONE);
+        entity.setId(expensesId);
+
+        List<ExpensesEntity> entitiesList = Collections.singletonList(entity);
+        when(expensesRepository.findAll()).thenReturn(entitiesList);
+
+        // when
+        var result = expensesService.getAllExpenses();
+
+        // then
+        assertThat(result).isNotNull().hasSize(1);
+        var dto = result.get(0);
+        assertThat(dto.getId()).isEqualTo(expensesId);
     }
 
     private List<ExpensesDto> prepareDtos(int numberOfDtos) {
