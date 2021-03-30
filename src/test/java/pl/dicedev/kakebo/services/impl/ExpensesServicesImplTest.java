@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.mappers.ExpensesSingleMapperImpl;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
@@ -78,6 +79,27 @@ public class ExpensesServicesImplTest {
         assertThat(result).isNotNull().hasSize(1);
         var dto = result.get(0);
         assertThat(dto.getId()).isEqualTo(expensesId);
+    }
+
+    @Test
+    void shouldReturnListsOfDtosParsedByMapper() {
+        // given
+        var category = ExpensesCategory.FOR_LIVE.name();
+
+        UUID entityId = UUID.randomUUID();
+        ExpensesEntity entity = new ExpensesEntity();
+        entity.setId(entityId);
+        List<ExpensesEntity> entityList = Collections.singletonList(entity);
+        when(expensesRepository.findExpensesEntitiesByExpensesCategory(ExpensesCategory.FOR_LIVE)).thenReturn(entityList);
+
+        // when
+        var result = expensesService.getExpensesByCategory(category);
+
+        // then
+        assertThat(result).hasSize(1);
+        var dto = result.get(0);
+        assertThat(dto.getId()).isEqualTo(entityId);
+
     }
 
     private List<ExpensesDto> prepareDtos(int numberOfDtos) {
