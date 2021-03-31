@@ -14,13 +14,14 @@ import pl.dicedev.kakebo.security.mapper.UserMapper;
 import pl.dicedev.kakebo.security.mapper.UserMapperImpl;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.*;
 import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.USER_ALREADY_EXISTS;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
-
 
     @Mock
     private UserDetailsRepository userDetailsRepository;
@@ -44,8 +45,8 @@ class UserServiceImplTest {
         var userEntity = new UserEntity();
         userEntity.setUsername(username);
         userEntity.setPassword(hashedPassword);
-        Mockito.when(userDetailsRepository.findByUsername(username)).thenReturn(Optional.empty());
-        Mockito.when(userDetailsRepository.save(userEntity)).thenReturn(userEntity);
+        when(userDetailsRepository.findByUsername(username)).thenReturn(Optional.empty());
+        when(userDetailsRepository.save(userEntity)).thenReturn(userEntity);
 
         // when
         var userId = userService.saveUser(user);
@@ -63,7 +64,7 @@ class UserServiceImplTest {
         var userEntity = new UserEntity();
         var user = new AuthUserDto(null, username, password);
         userEntity.setUsername(username);
-        Mockito.when(userDetailsRepository.findByUsername(username)).thenReturn(Optional.of(userEntity));
+        when(userDetailsRepository.findByUsername(username)).thenReturn(Optional.of(userEntity));
 
         // when
         var response = Assertions.assertThrows(UserAlreadyExistException.class,
@@ -71,6 +72,29 @@ class UserServiceImplTest {
 
         // then
         assertThat(response.getMessage()).isEqualTo(USER_ALREADY_EXISTS);
+
+    }
+
+    @Test
+    void shouldVerifyIfUserRepositoryDeleteWasCalled() {
+        // given
+        var userId = UUID.randomUUID();
+        var username = "user@admin.com";
+        var password = "passwd";
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setUsername(username);
+        Optional<UserEntity> userEntityOptional = Optional.of(userEntity);
+
+        AuthUserDto userToDelete = new AuthUserDto(userId, username, password);
+
+        when(userDetailsRepository.findById(userId)).thenReturn(userEntityOptional);
+
+        // when
+        userService.deleteUser(userToDelete);
+
+        // then
+        verify(userDetailsRepository, times(1)).delete(userEntity);
 
     }
 }
