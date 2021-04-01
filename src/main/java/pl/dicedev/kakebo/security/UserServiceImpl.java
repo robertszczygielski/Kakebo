@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.security.exceptions.KakeboDeleteUserException;
 import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.mapper.UserMapper;
 
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
             log.info("user deleted successfully, {}", authUserDto.getUsername());
         } else {
             log.info("user do not exist; id:{}, username: {}", authUserDto.getId(), authUserDto.getUsername());
+            throw new KakeboDeleteUserException();
         }
     }
 
