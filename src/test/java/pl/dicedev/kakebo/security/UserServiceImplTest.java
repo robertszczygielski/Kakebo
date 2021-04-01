@@ -1,14 +1,14 @@
 package pl.dicedev.kakebo.security;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.security.dto.AuthUserDto;
+import pl.dicedev.kakebo.security.exceptions.ExceptionMessages;
+import pl.dicedev.kakebo.security.exceptions.KakeboDeleteUserException;
 import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.mapper.UserMapper;
 import pl.dicedev.kakebo.security.mapper.UserMapperImpl;
@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.USER_ALREADY_EXISTS;
 
@@ -27,6 +28,10 @@ class UserServiceImplTest {
     private UserDetailsRepository userDetailsRepository;
 
     private UserService userService;
+
+    private static final UUID userId = UUID.randomUUID();
+    public static final String username = "user@admin.com";
+    public static final String password = "passwd";
 
     @BeforeEach
     public void setUp() {
@@ -67,7 +72,7 @@ class UserServiceImplTest {
         when(userDetailsRepository.findByUsername(username)).thenReturn(Optional.of(userEntity));
 
         // when
-        var response = Assertions.assertThrows(UserAlreadyExistException.class,
+        var response = assertThrows(UserAlreadyExistException.class,
                 () -> userService.saveUser(user));
 
         // then
@@ -78,9 +83,6 @@ class UserServiceImplTest {
     @Test
     void shouldVerifyIfUserRepositoryDeleteWasCalled() {
         // given
-        var userId = UUID.randomUUID();
-        var username = "user@admin.com";
-        var password = "passwd";
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userId);
         userEntity.setUsername(username);
@@ -95,6 +97,28 @@ class UserServiceImplTest {
 
         // then
         verify(userDetailsRepository, times(1)).delete(userEntity);
+
+    }
+
+
+    @Test
+    void shouldThrowExceptionKakeboDeleteUserExceptionWhenThereWasAnErrorDuringDeleteUser() {
+        // given
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setUsername("fakeUser@com.com");
+        Optional<UserEntity> userEntityOptional = Optional.of(userEntity);
+        AuthUserDto authUserDto = new AuthUserDto(userId, username, password);
+
+        when(userDetailsRepository.findById(userId)).thenReturn(userEntityOptional);
+
+        // when
+        var result = assertThrows(KakeboDeleteUserException.class,
+                () -> userService.deleteUser(authUserDto));
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result.getMessage()).isEqualTo(ExceptionMessages.USER_DELETE_ERROR);
 
     }
 }
