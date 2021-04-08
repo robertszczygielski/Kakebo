@@ -1,5 +1,5 @@
 import axios from "axios"
-import { EXPENSES_URI, EXPENSES_PLAN_URI } from "../../api/main";
+import { EXPENSES_PLAN_URI, EXPENSES_URI } from "../../api/main";
 
 
 export interface IExpenses {

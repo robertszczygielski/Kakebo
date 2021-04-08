@@ -100,7 +100,6 @@ class UserServiceImplTest {
 
     }
 
-
     @Test
     void shouldThrowExceptionKakeboDeleteUserExceptionWhenThereWasAnErrorDuringDeleteUser() {
         // given

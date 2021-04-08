@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { getAllAssetsCategories, setAsset } from "../api/AssetApi";
-import { useEffect, useState } from "react";
 
 interface IAsset {
     asset: number;
