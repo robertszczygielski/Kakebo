@@ -20,7 +20,7 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_user_in_expenses
+                    foreignKeyName: fk_user_in_expenses_plan
                     references: users(id)
               - column:
                   name: expense_date
