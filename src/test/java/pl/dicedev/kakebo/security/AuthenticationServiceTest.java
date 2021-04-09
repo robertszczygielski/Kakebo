@@ -24,7 +24,6 @@ import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.INCORRECT_
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
 
-
     @Mock
     private AuthenticationManager authenticationManager;
     @Mock
@@ -36,7 +35,7 @@ class AuthenticationServiceTest {
     public void setup() {
         var jwtUtil = new JWTUtil();
 
-        authenticationService = new AuthenticationService(authenticationManager, userDetailsService, jwtUtil);
+        this.authenticationService = new AuthenticationService(this.authenticationManager, this.userDetailsService, jwtUtil);
     }
 
     @Test
@@ -53,14 +52,14 @@ class AuthenticationServiceTest {
                 .authorities(Collections.emptyList())
                 .id(id)
                 .build();
-        ;
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
-        Mockito.when(authenticationManager.authenticate(authenticationToken)).thenReturn(authenticationToken);
-        Mockito.when(userDetailsService.loadUserByUsername(username)).thenReturn(userDetails);
+        Mockito.when(this.authenticationManager.authenticate(authenticationToken)).thenReturn(authenticationToken);
+        Mockito.when(this.userDetailsService.loadUserByUsername(username)).thenReturn(userDetails);
 
         // when
-        var result = authenticationService.authenticateUser(authUserDto);
+        var result = this.authenticationService.authenticateUser(authUserDto);
 
         // then
         var resultHeader = result.getJwtToken().substring(0, 20);
@@ -75,11 +74,11 @@ class AuthenticationServiceTest {
         var password = "bad_passwd";
         var authUserDto = new AuthUserDto(null, username, password);
         var auth = new UsernamePasswordAuthenticationToken(username, password);
-        Mockito.when(authenticationManager.authenticate(auth)).thenThrow(BadCredentialsException.class);
+        Mockito.when(this.authenticationManager.authenticate(auth)).thenThrow(BadCredentialsException.class);
 
         // when
         var badKakeboCredentialsException = Assertions.assertThrows(BadKakeboCredentialsException.class,
-                () -> authenticationService.authenticateUser(authUserDto)
+                () -> this.authenticationService.authenticateUser(authUserDto)
 
         );
         //then
