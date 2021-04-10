@@ -24,11 +24,12 @@ import static pl.dicedev.kakebo.security.exceptions.ExceptionMessages.USER_ALREA
 @Transactional
 class UserServiceIntegrationTest {
 
-    private final String usernameAndPassword = "user123";
     @Autowired
     private UserDetailsRepository userDetailsRepository;
     @Autowired
     private UserServiceImpl userService;
+
+    private final String usernameAndPassword = "user123";
 
     @Test
     void shouldSaveOneUserInDatabaseWhenThereIsNoUser() {
@@ -89,6 +90,24 @@ class UserServiceIntegrationTest {
         AuthUserDto dto = new AuthUserDto();
         dto.setUsername(usernameAndPassword);
         dto.setId(UUID.randomUUID());
+
+        // when
+        var result = assertThrows(KakeboDeleteUserException.class,
+                () -> userService.deleteUser(dto));
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result.getMessage()).isEqualTo(ExceptionMessages.USER_DELETE_ERROR);
+
+    }
+
+    @Test
+    void shouldThrowKakeboDeleteUserExceptionWhenUserIsFoundInDatabaseAndHasDifferentName() {
+        // given
+        var userId = initDatabaseByUser();
+        AuthUserDto dto = new AuthUserDto();
+        dto.setUsername("fakeName");
+        dto.setId(userId);
 
         // when
         var result = assertThrows(KakeboDeleteUserException.class,
