@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.dicedev.kakebo.enums.AssetCategory;
 import pl.dicedev.kakebo.repositories.entities.AssetEntity;
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,5 +13,7 @@ import java.util.UUID;
 public interface AssetRepository extends CrudRepository<AssetEntity, UUID> {
 
     List<AssetEntity> getAssetEntitiesByAssetCategory(AssetCategory assetCategory);
+
+    void deleteAllByUser(UserEntity userEntity);
 
 }
