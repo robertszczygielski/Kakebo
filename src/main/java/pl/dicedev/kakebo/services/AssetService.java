@@ -14,4 +14,7 @@ public interface AssetService {
     List<AssetDto> findAll();
 
     List<AssetDto> getAssetByCategory(String category);
+
+    void deleteUser();
+
 }
