@@ -60,4 +60,9 @@ public class AssetServiceImpl implements AssetService {
                 .map(assetMapper::fromEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteUser() {
+        assetRepository.deleteAllByUser(null);
+    }
 }
