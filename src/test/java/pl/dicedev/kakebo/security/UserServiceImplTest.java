@@ -12,6 +12,7 @@ import pl.dicedev.kakebo.security.exceptions.KakeboDeleteUserException;
 import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.mapper.UserMapper;
 import pl.dicedev.kakebo.security.mapper.UserMapperImpl;
+import pl.dicedev.kakebo.services.impl.AssetServiceImpl;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -26,6 +27,8 @@ class UserServiceImplTest {
 
     @Mock
     private UserDetailsRepository userDetailsRepository;
+    @Mock
+    private AssetServiceImpl assetService;
 
     private UserService userService;
 
@@ -37,7 +40,7 @@ class UserServiceImplTest {
     public void setUp() {
         UserMapper userMapper = new UserMapperImpl();
 
-        userService = new UserServiceImpl(userDetailsRepository, userMapper);
+        userService = new UserServiceImpl(userDetailsRepository, userMapper, assetService);
     }
 
     @Test

@@ -7,6 +7,7 @@ import pl.dicedev.kakebo.security.dto.AuthUserDto;
 import pl.dicedev.kakebo.security.exceptions.KakeboDeleteUserException;
 import pl.dicedev.kakebo.security.exceptions.UserAlreadyExistException;
 import pl.dicedev.kakebo.security.mapper.UserMapper;
+import pl.dicedev.kakebo.services.impl.AssetServiceImpl;
 
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDetailsRepository userDetailsRepository;
     private final UserMapper userMapper;
+    private final AssetServiceImpl assetService;
 
     @Override
     public UUID saveUser(AuthUserDto authUserDto) {
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(AuthUserDto authUserDto) {
         var userEntity = userDetailsRepository.findById(authUserDto.getId());
         if (userEntity.isPresent() && authUserDto.getUsername().equals(userEntity.get().getUsername())) {
+            assetService.deleteByUser(userEntity.get());
             userDetailsRepository.delete(userEntity.get());
             log.info("user deleted successfully, {}", authUserDto.getUsername());
         } else {

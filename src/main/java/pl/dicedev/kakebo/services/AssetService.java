@@ -1,5 +1,6 @@
 package pl.dicedev.kakebo.services;
 
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public interface AssetService {
 
     List<AssetDto> getAssetByCategory(String category);
 
-    void deleteUser();
+    void deleteByUser(UserEntity userEntity);
 
 }
