@@ -43,4 +43,5 @@ public class AssetController {
     public List<AssetDto> getExpensesByCategory(@PathParam("category") String category) {
         return assetService.getAssetByCategory(category);
     }
+ 
 }
