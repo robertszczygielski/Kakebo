@@ -16,6 +16,5 @@ public interface AssetService {
 
     List<AssetDto> getAssetByCategory(String category);
 
-    void deleteByUser(UserEntity userEntity);
-
+    void deleteAssetsByUser(UserEntity userEntity);
 }
