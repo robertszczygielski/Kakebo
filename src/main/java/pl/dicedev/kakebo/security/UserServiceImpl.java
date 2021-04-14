@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(AuthUserDto authUserDto) {
         var userEntity = userDetailsRepository.findById(authUserDto.getId());
         if (userEntity.isPresent() && authUserDto.getUsername().equals(userEntity.get().getUsername())) {
-            assetService.deleteByUser(userEntity.get());
+            assetService.deleteAssetsByUser(userEntity.get());
             userDetailsRepository.delete(userEntity.get());
             log.info("user deleted successfully, {}", authUserDto.getUsername());
         } else {
