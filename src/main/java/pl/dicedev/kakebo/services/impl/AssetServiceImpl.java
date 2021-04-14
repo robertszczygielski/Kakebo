@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.dicedev.kakebo.enums.AssetCategory;
 import pl.dicedev.kakebo.mappers.AssetMapper;
 import pl.dicedev.kakebo.repositories.AssetRepository;
+import pl.dicedev.kakebo.repositories.entities.UserEntity;
 import pl.dicedev.kakebo.services.AssetService;
 import pl.dicedev.kakebo.services.dtos.AssetDto;
 import pl.dicedev.kakebo.validators.AssetValidator;
@@ -62,7 +63,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public void deleteUser() {
-        assetRepository.deleteAllByUser(null);
+    public void deleteAssetsByUser(UserEntity userEntity) {
+        assetRepository.deleteAllByUser(userEntity);
     }
 }
