@@ -33,6 +33,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Kakebo Budget Application")
+                .description("API 'v1' for small budget application")
                 .build();
     }
 
