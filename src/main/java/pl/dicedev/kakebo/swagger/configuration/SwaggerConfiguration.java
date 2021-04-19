@@ -33,9 +33,10 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Kakebo Budget Application")
-                .description("API 'v1' for small budget application")
+                .description("API 'v0.1' for small budget application")
                 .license("MIT License")
                 .licenseUrl("https://mit-license.org/")
+                .version("v0.1")
                 .build();
     }
 
