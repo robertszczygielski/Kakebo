@@ -25,8 +25,10 @@ export const ExpensesForm: React.FC = () => {
         })
     }
 
-    const submitHandler = (values: IExpenses) => {
-        setExpenses([values]);
+    const submitHandler = (values: IExpenses, {resetForm}: any) => {
+        setExpenses([values]).then(() => {
+            resetForm({initialValues})
+        });
     }
 
     return (
@@ -40,7 +42,7 @@ export const ExpensesForm: React.FC = () => {
                 <Form>
                     <Field type="text" id="amount" name="amount" placeholder="0"/>
                     <Field as="select" id="expensesCategory" name="expensesCategory">
-                        {expensesCategories?.map(expensesCategory =>(
+                        {expensesCategories?.map(expensesCategory => (
                             <option value={expensesCategory}>{expensesCategory}</option>
                         ))}
                     </Field>

@@ -8,7 +8,7 @@ import { RegisterBasic } from "../auth/register/Register";
 import { Loguot } from "../auth/loguot/Loguot";
 import { ExpensesForm } from "../expenses/components/ExpensesForm";
 import { ExpensesPlanForm } from "../expenses/components/ExpensesPlanForm";
-import AllExpenses from "../expenses/components/AllExpenses";
+import { AllExpenses } from "../expenses/components/AllExpenses";
 
 export class RootRouter extends React.Component {
     render() {
@@ -25,7 +25,10 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/asset/add">Add Assets</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/expenses">Expenses</Nav.Link>
+                            <Nav.Link href="/expenses/add">Expenses</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/expenses/all">All Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/logout">Logout</Nav.Link>
@@ -42,7 +45,7 @@ export class RootRouter extends React.Component {
                         <Route path="/asset/add">
                             <AssetForm/>
                         </Route>
-                        <Route path="/expenses">
+                        <Route path="/expenses/add">
                             <ExpensesForm/>
                         </Route>
                         <Route path="/expenses/all">
