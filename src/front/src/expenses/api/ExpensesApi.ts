@@ -23,17 +23,19 @@ export const getCountedExpenses: any = () => {
 
 export const getExpensesPlan: any = () => {
     return axios.get(EXPENSES_PLAN_URI)
-        .then((rest) => {rest.data})
+        .then((rest) => {
+            return rest.data
+        })
         .catch(err => console.error(err))
 }
 
 export const getAllExpenses: any = () => {
     return axios.get(EXPENSES_URI)
-        .then((rest) => {rest.data})
+        .then((rest) => {
+            return rest.data
+        })
         .catch(err => console.error(err))
 }
-
-
 
 export const getAllExpensesCategories: any = () => {
     return axios.get(EXPENSES_URI + "categories")

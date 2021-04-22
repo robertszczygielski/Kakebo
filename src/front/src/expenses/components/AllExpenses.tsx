@@ -8,7 +8,7 @@ interface IExpenses {
     expensesCategory: string
 }
 
-const AllExpenses: React.FC = () => {
+export const AllExpenses: React.FC = () => {
     const [expenses, setExpenses] = useState<Array<IExpenses | null> | null>([]);
 
     useEffect(() => {
@@ -32,5 +32,3 @@ const AllExpenses: React.FC = () => {
         </div>
     );
 }
-
-export default AllExpenses;
