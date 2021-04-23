@@ -25,10 +25,10 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/asset/add">Add Assets</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/expenses/add">Expenses</Nav.Link>
+                            <Nav.Link href="/expenses/all">All Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/expenses/all">All Expenses</Nav.Link>
+                            <Nav.Link href="/expenses/add">Add Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/logout">Logout</Nav.Link>
@@ -45,11 +45,11 @@ export class RootRouter extends React.Component {
                         <Route path="/asset/add">
                             <AssetForm/>
                         </Route>
-                        <Route path="/expenses/add">
-                            <ExpensesForm/>
-                        </Route>
                         <Route path="/expenses/all">
                             <AllExpenses/>
+                        </Route>
+                        <Route path="/expenses/add">
+                            <ExpensesForm/>
                         </Route>
                         <Route path="/expenses/plan">
                             <ExpensesPlanForm/>
