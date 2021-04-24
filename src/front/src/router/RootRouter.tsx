@@ -31,7 +31,7 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/expenses/add">Add Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/logout">Logout</Nav.Link>
+                            <Nav.Link href="/logout">Logout user</Nav.Link>
                         </Nav.Item>
                     </Nav>
 
