@@ -1,5 +1,5 @@
 import axios from "axios"
-import { EXPENSES_PLAN_URI, EXPENSES_URI } from "../../api/main";
+import { EXPENSES_URI } from "../../api/main";
 
 
 export interface IExpenses {
@@ -8,21 +8,8 @@ export interface IExpenses {
     expensesCategory: string;
 }
 
-export interface IExpensesPlan {
-    amount: number;
-    expensesCategory: string;
-}
-
 export const getCountedExpenses: any = () => {
     return axios.get(EXPENSES_URI + "counted")
-        .then((rest) => {
-            return rest.data
-        })
-        .catch(err => console.error(err))
-}
-
-export const getExpensesPlan: any = () => {
-    return axios.get(EXPENSES_PLAN_URI)
         .then((rest) => {
             return rest.data
         })
@@ -47,14 +34,6 @@ export const getAllExpensesCategories: any = () => {
 
 export const setExpenses: any = (expenses: IExpenses[]) => {
     return axios.post(EXPENSES_URI, expenses)
-        .then((rest) => {
-            return rest.data
-        })
-        .catch(err => console.error(err))
-}
-
-export const setExpensesPlan: any = (expenses: IExpensesPlan[]) => {
-    return axios.post(EXPENSES_PLAN_URI, expenses)
         .then((rest) => {
             return rest.data
         })
