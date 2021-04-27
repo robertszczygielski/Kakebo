@@ -31,6 +31,9 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/expenses/add">Add Expenses</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
+                            <Nav.Link href="/expenses/plan/add">Add Expenses Plan</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
                             <Nav.Link href="/logout">Logout user</Nav.Link>
                         </Nav.Item>
                     </Nav>
@@ -51,7 +54,7 @@ export class RootRouter extends React.Component {
                         <Route path="/expenses/add">
                             <ExpensesForm/>
                         </Route>
-                        <Route path="/expenses/plan">
+                        <Route path="/expenses/plan/add">
                             <ExpensesPlanForm/>
                         </Route>
                         <Route path="/logout">
