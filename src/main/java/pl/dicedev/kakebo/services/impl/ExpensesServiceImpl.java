@@ -1,8 +1,9 @@
 package pl.dicedev.kakebo.services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.annotations.LoggedUser;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
@@ -17,13 +18,15 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class ExpensesServiceImpl implements ExpensesService {
 
     private final ExpensesRepository expensesRepository;
     private final ExpensesMapper expensesMapper;
     private final UserLogInfoService userLogInfoService;
+    @LoggedUser
+    private UserEntity userEntity;
 
     @Override
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
@@ -53,7 +56,7 @@ public class ExpensesServiceImpl implements ExpensesService {
     @Override
     public List<ExpensesDto> getAllExpenses() {
         var allExpenses = expensesRepository.findAll();
-        var expensesList =  StreamSupport.stream(allExpenses.spliterator(), false)
+        var expensesList = StreamSupport.stream(allExpenses.spliterator(), false)
                 .collect(Collectors.toList());
         return expensesMapper.fromEntitiesToDtos(expensesList);
     }
