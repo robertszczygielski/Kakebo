@@ -10,7 +10,7 @@ import pl.dicedev.kakebo.security.exceptions.UserNotExistException;
 
 @AllArgsConstructor
 @Component
-class UserLogInfoService {
+public class UserLogInfoService {
 
     private final UserDetailsRepository userDetailsRepository;
 
