@@ -3,7 +3,6 @@ package pl.dicedev.kakebo.services.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.dicedev.kakebo.annotations.LoggedUser;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
@@ -25,8 +24,6 @@ public class ExpensesServiceImpl implements ExpensesService {
     private final ExpensesRepository expensesRepository;
     private final ExpensesMapper expensesMapper;
     private final UserLogInfoService userLogInfoService;
-    @LoggedUser
-    private UserEntity userEntity;
 
     @Override
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
