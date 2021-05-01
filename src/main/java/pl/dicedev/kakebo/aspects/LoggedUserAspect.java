@@ -14,7 +14,7 @@ public class LoggedUserAspect {
 
     private final UserLogInfoService userLogInfoService;
 
-    @Around("@annotation(pl.dicedev.kakebo.annotations.LoggedUser)")
+    @Around("@annotation(pl.dicedev.kakebo.annotations.LogBeforeExecute)")
     public Object setUser(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println("in aspect");
         return joinPoint.proceed();
