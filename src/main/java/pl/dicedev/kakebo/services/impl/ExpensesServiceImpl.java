@@ -3,6 +3,7 @@ package pl.dicedev.kakebo.services.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.annotations.LogBeforeExecute;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesMapper;
 import pl.dicedev.kakebo.repositories.ExpensesRepository;
@@ -34,6 +35,7 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
+    @LogBeforeExecute
     public BigDecimal countAllExpenses() {
         var loggedUser = getLoggedUserEntity();
         return expensesRepository.countAllExpenses(loggedUser);
