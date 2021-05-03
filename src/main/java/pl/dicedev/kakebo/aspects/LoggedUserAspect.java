@@ -11,10 +11,18 @@ import org.springframework.stereotype.Component;
 @Slf4j(topic = "pl.dicedev..LogBeforeExecute")
 public class LoggedUserAspect {
 
-    @Around("@annotation(pl.dicedev.kakebo.annotations.LogBeforeExecute)")
-    public Object setUser(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("@annotation(pl.dicedev.kakebo.annotations.LogInfo)")
+    public Object logInfo(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = joinPoint.proceed();
         log.info(joinPoint.getSignature().getName());
+
+        return proceed;
+    }
+
+    @Around("@annotation(pl.dicedev.kakebo.annotations.LogDebug)")
+    public Object logDebug(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object proceed = joinPoint.proceed();
+        log.debug(joinPoint.getSignature().getName());
 
         return proceed;
     }
