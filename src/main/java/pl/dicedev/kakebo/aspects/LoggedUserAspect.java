@@ -22,7 +22,10 @@ public class LoggedUserAspect {
     @Around("@annotation(pl.dicedev.kakebo.annotations.LogDebug)")
     public Object logDebug(ProceedingJoinPoint joinPoint) throws Throwable {
         Object proceed = joinPoint.proceed();
-        log.debug(joinPoint.getSignature().getName());
+        Object[] methodArguments = joinPoint.getArgs();
+        for (Object methodArgument : methodArguments) {
+            log.debug(methodArgument.toString());
+        }
 
         return proceed;
     }
