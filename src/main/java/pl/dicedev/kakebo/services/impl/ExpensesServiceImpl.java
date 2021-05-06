@@ -30,10 +30,8 @@ public class ExpensesServiceImpl implements ExpensesService {
     @Override
     @LogDebug
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
-        log.info("Expenses to save: {}", expensesDtos.size());
         var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, getLoggedUserEntity());
         expensesRepository.saveAll(expensesEntities);
-        log.info("Saved expenses = {}", expensesEntities.size());
     }
 
     @Override
