@@ -29,6 +29,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     @Override
     @LogDebug
+    @LogInfo
     public void saveExpenses(List<ExpensesDto> expensesDtos) {
         var expensesEntities = expensesMapper.fromDtosToEntities(expensesDtos, getLoggedUserEntity());
         expensesRepository.saveAll(expensesEntities);
