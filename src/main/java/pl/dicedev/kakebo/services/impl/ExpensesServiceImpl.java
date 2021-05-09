@@ -43,13 +43,16 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
+    @LogInfo
+    @LogDebug
     public BigDecimal countExpensesForCategory(ExpensesCategory expensesCategory) {
         return expensesRepository.countByUserAndExpensesCategory(getLoggedUserEntity(), expensesCategory);
     }
 
     @Override
     public List<ExpensesDto> getExpensesByCategory(String category) {
-        List<ExpensesEntity> entities = expensesRepository.findExpensesEntitiesByExpensesCategory(ExpensesCategory.valueOf(category.toUpperCase()));
+        List<ExpensesEntity> entities = expensesRepository.findExpensesEntitiesByExpensesCategory(
+                ExpensesCategory.valueOf(category.toUpperCase()));
         return expensesMapper.fromEntitiesToDtos(entities);
     }
 
