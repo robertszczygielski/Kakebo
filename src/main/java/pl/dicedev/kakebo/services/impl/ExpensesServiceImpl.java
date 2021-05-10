@@ -50,6 +50,8 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
+    @LogInfo
+    @LogDebug
     public List<ExpensesDto> getExpensesByCategory(String category) {
         List<ExpensesEntity> entities = expensesRepository.findExpensesEntitiesByExpensesCategory(
                 ExpensesCategory.valueOf(category.toUpperCase()));
