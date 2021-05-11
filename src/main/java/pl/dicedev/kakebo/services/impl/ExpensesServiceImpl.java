@@ -59,6 +59,7 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
+    @LogInfo
     public List<ExpensesDto> getAllExpenses() {
         var allExpenses = expensesRepository.findAll();
         var expensesList = StreamSupport.stream(allExpenses.spliterator(), false)
