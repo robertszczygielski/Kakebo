@@ -2,6 +2,8 @@ package pl.dicedev.kakebo.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.annotations.LogDebug;
+import pl.dicedev.kakebo.annotations.LogInfo;
 import pl.dicedev.kakebo.enums.ExpensesCategory;
 import pl.dicedev.kakebo.mappers.ExpensesPlanMapper;
 import pl.dicedev.kakebo.repositories.ExpensesPlanRepository;
@@ -20,6 +22,8 @@ public class ExpensesPlanServiceImpl implements ExpensesPlanService {
     private final ExpensesPlanMapper expensesPlanMapper;
 
     @Override
+    @LogInfo
+    @LogDebug
     public void addExpensesPlan(ExpensesPlanDto expensesPlanDto) {
         ExpensesPlanEntity expensesPlanEntity = expensesPlanMapper.fromDtoToEntities(expensesPlanDto);
 
