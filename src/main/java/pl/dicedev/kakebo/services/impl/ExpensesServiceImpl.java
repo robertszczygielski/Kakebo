@@ -67,6 +67,7 @@ public class ExpensesServiceImpl implements ExpensesService {
         return expensesMapper.fromEntitiesToDtos(expensesList);
     }
 
+
     private UserEntity getLoggedUserEntity() {
         return userLogInfoService.getLoggedUserEntity();
     }
