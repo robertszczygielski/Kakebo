@@ -9,6 +9,7 @@ import { Loguot } from "../auth/loguot/Loguot";
 import { ExpensesForm } from "../expenses/components/ExpensesForm";
 import { ExpensesPlanForm } from "../expenses/components/ExpensesPlanForm";
 import { AllExpenses } from "../expenses/components/AllExpenses";
+import { AllExpensesPlan } from "../expenses/plan/components/AllExpensesPlan";
 
 export class RootRouter extends React.Component {
     render() {
@@ -34,6 +35,9 @@ export class RootRouter extends React.Component {
                             <Nav.Link href="/plan/expenses/add">Add Expenses Plan</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
+                            <Nav.Link href="/plan/expenses/all">All Expenses Plan</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
                             <Nav.Link href="/logout">Logout user</Nav.Link>
                         </Nav.Item>
                     </Nav>
@@ -56,6 +60,9 @@ export class RootRouter extends React.Component {
                         </Route>
                         <Route path="/plan/expenses/add">
                             <ExpensesPlanForm/>
+                        </Route>
+                        <Route path="/plan/expenses/all">
+                            <AllExpensesPlan/>
                         </Route>
                         <Route path="/logout">
                             <Loguot/>

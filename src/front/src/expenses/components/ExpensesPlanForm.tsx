@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
-import { getAllExpensesCategories, IExpensesPlan, setExpensesPlan } from "../api/ExpensesApi";
+import { getAllExpensesCategories } from "../api/ExpensesApi";
 import CountedExpenses from "./CountedExpenses";
+import { IExpensesPlan, setExpensesPlan } from "../plan/api/ExpensesPlanApi";
 
 export const ExpensesPlanForm: React.FC = () => {
     const [expensesCategories, setExpensesCategories] = useState<Array<string>>(
