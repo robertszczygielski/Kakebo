@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CopyToClipboard } from "../../copy/CopyToClipboard";
 import { Button } from "react-bootstrap";
 
 interface IAsset {
@@ -31,9 +30,11 @@ const AllAssets: React.FC = () => {
                 {assets?.map(asset => (
                     <li key={asset?.id}>
                         {asset?.amount} - {asset?.assetCategory} - {asset?.incomeDate}
-                        <CopyToClipboard text={asset?.id}>
-                            <Button>Copy Id</Button>
-                        </CopyToClipboard>
+
+                        <Button onClick={() => {
+                            navigator.clipboard.writeText(asset?.id + '')
+                        }}>Copy Id</Button>
+
                     </li>
                 ))}
             </ul>
