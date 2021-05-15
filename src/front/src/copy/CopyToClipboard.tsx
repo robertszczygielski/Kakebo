@@ -14,10 +14,6 @@ export const CopyToClipboard: React.FC<IToCopy> = ({text, children}) => {
         // @ts-ignore
         textAreaRef.current.select();
         document.execCommand('copy');
-        // This is just personal preference.
-        // I prefer to not show the whole text area selected.
-        // e.target.focus();
-        // setCopySuccess('Copied!');
     };
 
     return (
