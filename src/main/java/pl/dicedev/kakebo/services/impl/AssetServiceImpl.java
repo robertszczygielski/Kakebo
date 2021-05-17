@@ -40,11 +40,10 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
+    @LogInfo
+    @LogDebug
     public AssetDto findById(UUID id) {
-        log.info("Search for Id: {}", id);
         var entity = assetRepository.findById(id).orElse(null);
-        log.info("Find: {}", entity);
-
         return assetMapper.fromEntityToDto(entity);
     }
 
