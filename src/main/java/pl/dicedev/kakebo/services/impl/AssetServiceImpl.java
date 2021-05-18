@@ -54,6 +54,8 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
+    @LogInfo
+    @LogDebug
     public List<AssetDto> getAssetByCategory(String category) {
         return assetRepository.getAssetEntitiesByAssetCategory(
                 AssetCategory.valueOf(category.toUpperCase()))
