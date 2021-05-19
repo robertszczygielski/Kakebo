@@ -47,6 +47,7 @@ public class AssetServiceImpl implements AssetService {
         return assetMapper.fromEntityToDto(entity);
     }
 
+    @LogInfo
     @Override
     public List<AssetDto> findAll() {
         log.info("Find all assets");
