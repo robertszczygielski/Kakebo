@@ -66,6 +66,8 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
+    @LogInfo
+    @LogDebug
     public void deleteAssetsByUser(UserEntity userEntity) {
         assetRepository.deleteAllByUser(userEntity);
     }
