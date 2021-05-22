@@ -31,6 +31,7 @@ public class ExpensesPlanServiceImpl implements ExpensesPlanService {
     }
 
     @Override
+    @LogInfo
     public List<ExpensesPlanDto> getExpensesPlan() {
         return expensesPlanRepository.findAll()
                 .stream()
