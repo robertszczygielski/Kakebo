@@ -41,6 +41,7 @@ public class ExpensesPlanServiceImpl implements ExpensesPlanService {
     }
 
     @Override
+    @LogInfo
     public List<ExpensesPlanDto> getExpensesPlanByCategory(String category) {
         var expenseCategory = ExpensesCategory.valueOf(category);
         var entities = expensesPlanRepository.findAll().stream()
