@@ -3,6 +3,7 @@ package pl.dicedev.kakebo.services.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import pl.dicedev.kakebo.annotations.LogInfo;
 import pl.dicedev.kakebo.security.AuthenticationService;
 import pl.dicedev.kakebo.security.UserService;
 import pl.dicedev.kakebo.security.bto.UserBto;
@@ -18,6 +19,7 @@ public class LoginServiceImpl implements LoginService {
     private final AuthenticationService authenticationService;
 
     @Override
+    @LogInfo
     public AuthResponse loginUser(AuthUserDto authUserDto) {
         var token = authenticationService.authenticateUser(authUserDto);
         userService.setLoggedIn(authUserDto.getUsername());
