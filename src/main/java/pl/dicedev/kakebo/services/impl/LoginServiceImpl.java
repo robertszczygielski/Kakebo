@@ -27,6 +27,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @LogInfo
     public void logoutUser() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         var userId = ((UserBto) auth.getPrincipal()).getId();
