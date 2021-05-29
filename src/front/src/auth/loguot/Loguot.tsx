@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 
 export const Loguot: React.FC = () => {
     const [logged, setLogged] = useState(false);
@@ -13,11 +14,14 @@ export const Loguot: React.FC = () => {
 
     return (
         <div>
-            <button onClick={handleLogout}>Logout</button>
+            <StyledButton onClick={handleLogout}>Logout</StyledButton>
             {logged && (
                 <Redirect to={'/'}/>
             )}
-
         </div>
     )
 }
+
+const StyledButton = styled.button`
+    background-color: #3949ab;
+`
