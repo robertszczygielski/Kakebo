@@ -23,6 +23,7 @@ export const Loguot: React.FC = () => {
 }
 
 const StyledButton = styled.button`
+    position: relative;
     background-color: #3949ab;
     font-size: 28px;
     padding: 1px 7px 2px;
