@@ -29,4 +29,5 @@ const StyledButton = styled.button`
     padding: 1px 7px 2px;
     border-radius: 12px;
     alignItems: 'center';
+    border:10px solid #d6bcd6;
 `
