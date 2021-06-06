@@ -26,6 +26,7 @@ const StyledButton = styled.button`
     position: relative;
     background-color: #3949ab;
     font-size: 28px;
+    font-family: Baskerville;
     padding: 1px 7px 2px;
     border-radius: 12px;
     alignItems: 'center';
