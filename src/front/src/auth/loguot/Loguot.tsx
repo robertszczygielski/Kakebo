@@ -31,4 +31,5 @@ const StyledButton = styled.button`
     border-radius: 12px;
     alignItems: 'center';
     border:10px solid #d6bcd6;
+    padding: 120px;
 `
