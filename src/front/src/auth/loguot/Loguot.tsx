@@ -23,13 +23,12 @@ export const Loguot: React.FC = () => {
 }
 
 const StyledButton = styled.button`
-    position: relative;
+    alignItems: 'center';
     background-color: #3949ab;
+    border-radius: 12px;
     font-size: 28px;
     font-family: Baskerville;
+    font-weight: bold;
     padding: 1px 7px 2px;
-    border-radius: 12px;
-    alignItems: 'center';
-    border:10px solid #d6bcd6;
-    padding: 120px;
+    position: relative;
 `
