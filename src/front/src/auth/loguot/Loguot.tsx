@@ -31,4 +31,6 @@ const StyledButton = styled.button`
     font-weight: bold;
     padding: 1px 7px 2px;
     position: relative;
+    text-decoration:none;
+    text-decoration:none;
 `
