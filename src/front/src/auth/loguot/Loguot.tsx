@@ -31,6 +31,7 @@ const StyledButton = styled.button`
     font-size: 28px;
     font-family: Baskerville;
     font-weight: bold;
+    letter-spacing: .15rem;
     padding: 1px 7px 2px;
     position: relative;
     text-decoration:none;
