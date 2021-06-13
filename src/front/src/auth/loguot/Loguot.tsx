@@ -35,4 +35,6 @@ const StyledButton = styled.button`
     padding: 1px 7px 2px;
     position: relative;
     text-decoration:none;
+    text-shadow: 3px 6px 1px rgba(255, 255, 255, 0.66);
+
 `
