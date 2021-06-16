@@ -37,5 +37,6 @@ const StyledButton = styled.button`
     text-align: center;
     text-decoration:none;
     text-shadow: 3px 6px 1px rgba(255, 255, 255, 0.66);
+    text-transform: uppercase;
 
 `
