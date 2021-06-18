@@ -24,7 +24,7 @@ export const Loguot: React.FC = () => {
 
 const StyledButton = styled.button`
     alignItems: 'center';
-    background-color: #3949ab;
+    background-image: linear-gradient(#3949ab 0%, #ffaaaa 100%);
     border-radius: 12px;
     border:2px solid #18ab29;
     box-shadow:inset 0px 1px 0px 0px #a4e271;
