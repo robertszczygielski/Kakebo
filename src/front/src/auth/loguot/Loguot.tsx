@@ -29,6 +29,7 @@ const StyledButton = styled.button`
     border:2px solid #18ab29;
     box-shadow:inset 0px 1px 0px 0px #a4e271;
     cursor:pointer;
+    display: inline-block;
     font-size: 28px;
     font-family: Baskerville;
     font-weight: bold;
