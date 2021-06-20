@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from "react-bootstrap";
 
 interface IAsset {
     id: string;
@@ -12,6 +11,36 @@ interface IAsset {
 
 const AllAssets: React.FC = () => {
     const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
+    const data = React.useMemo(
+        () => [
+            {
+                col1: 'Hello',
+                col2: 'World',
+            },
+            {
+                col1: 'react-table',
+                col2: 'rocks',
+            },
+            {
+                col1: 'whatever',
+                col2: 'you want',
+            },
+        ],
+        []
+    )
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Column 1',
+                accessor: 'col1', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Column 2',
+                accessor: 'col2',
+            },
+        ],
+        []
+    )
 
     useEffect(() => {
         findAllAssets();
@@ -21,7 +50,12 @@ const AllAssets: React.FC = () => {
         getAllAssets().then((data: any) => {
             const assets: Array<IAsset | null> = data;
             setAssets(assets);
-        })
+        });
+        setColumnData();
+    }
+
+    const setColumnData = () => {
+
     }
 
     return (
@@ -30,11 +64,6 @@ const AllAssets: React.FC = () => {
                 {assets?.map(asset => (
                     <li key={asset?.id}>
                         {asset?.amount} - {asset?.assetCategory} - {asset?.incomeDate}
-
-                        <Button onClick={() => {
-                            navigator.clipboard.writeText(asset?.id + '')
-                        }}>Copy Id</Button>
-
                     </li>
                 ))}
             </ul>
