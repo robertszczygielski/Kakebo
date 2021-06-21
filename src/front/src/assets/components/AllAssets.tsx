@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useTable } from "react-table";
 
 interface IAsset {
     id: string;
@@ -28,19 +29,33 @@ const AllAssets: React.FC = () => {
         ],
         []
     )
+
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Column 1',
-                accessor: 'col1', // accessor is the "key" in the data
-            },
-            {
-                Header: 'Column 2',
-                accessor: 'col2',
-            },
+                Header: 'test',
+                columns: [
+                    {
+                        Header: 'Column 1',
+                        accessor: 'col1', // accessor is the "key" in the data
+                    },
+                    {
+                        Header: 'Column 2',
+                        accessor: 'col2',
+                    },
+                ],
+            }
         ],
         []
     )
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    } = useTable({columns, data})
 
     useEffect(() => {
         findAllAssets();
