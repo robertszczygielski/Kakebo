@@ -37,12 +37,16 @@ const AllAssets: React.FC = () => {
                 columns: [
                     {
                         Header: 'Column 1',
-                        accessor: 'col1', // accessor is the "key" in the data
+                        accessor: 'amount', // accessor is the "key" in the data
                     },
                     {
                         Header: 'Column 2',
-                        accessor: 'col2',
+                        accessor: 'assetCategory',
                     },
+                    {
+                        Header: 'Column 2',
+                        accessor: 'incomeDate',
+                    }
                 ],
             }
         ],
