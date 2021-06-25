@@ -27,7 +27,7 @@ const AllAssets: React.FC = () => {
                 assetCategory: 'you want',
             },
         ],
-        []
+        [assets]
     )
 
     const columns = React.useMemo(
