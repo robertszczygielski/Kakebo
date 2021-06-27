@@ -16,6 +16,24 @@ const AllAssets: React.FC = () => {
         findAllAssets();
     }, [])
 
+    const data = React.useMemo(
+        () => [
+            {
+                col1: 'Hello',
+                col2: 'World',
+            },
+            {
+                col1: 'react-table',
+                col2: 'rocks',
+            },
+            {
+                col1: 'whatever',
+                col2: 'you want',
+            },
+        ],
+        []
+    )
+
     const findAllAssets = () => {
         getAllAssets().then((data: any) => {
             const assets: Array<IAsset | null> = data;
