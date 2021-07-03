@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Column, useTable } from "react-table";
 
 interface IAsset {
     id: string;
@@ -9,6 +10,7 @@ interface IAsset {
     incomeDate: string
 }
 
+
 const AllAssets: React.FC = () => {
     const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
 
@@ -16,43 +18,49 @@ const AllAssets: React.FC = () => {
         findAllAssets();
     }, [])
 
-    const data = React.useMemo(
+    const data = React.useMemo<IAsset[]>(
         () => [
             {
-                col1: 'Hello',
-                col2: 'World',
+                id: 'Hello',
+                amount: 1,
+                assetCategory: "a",
+                incomeDate: "2014-dd"
             },
             {
-                col1: 'react-table',
-                col2: 'rocks',
+                id: 'Hello',
+                amount: 1,
+                assetCategory: "a",
+                incomeDate: "2014-dd"
             },
             {
-                col1: 'whatever',
-                col2: 'you want',
+                id: 'Hello',
+                amount: 1,
+                assetCategory: "a",
+                incomeDate: "2014-dd"
             },
         ],
         []
     )
 
-    const columns = React.useMemo(
+    const columns = React.useMemo<Column<IAsset>[]>(
         () => [
             {
                 Header: 'Column 1',
-                columns: [
-                    {
-                        Header: 'Column 1',
-                        accessor: 'col1', // accessor is the "key" in the data
-                    },
-                    {
-                        Header: 'Column 2',
-                        accessor: 'col2',
-                    },
-                ],
-            }
+                accessor: 'amount', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Column 2',
+                accessor: 'assetCategory',
+            },
+            {
+                Header: 'Column 2',
+                accessor: 'incomeDate',
+            },
         ],
         []
     )
-    
+
+    const tableInstance = useTable({columns, data})
 
     const findAllAssets = () => {
         getAllAssets().then((data: any) => {
