@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAssets } from "../api/AssetApi";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Column, useTable } from "react-table";
+import { Column } from "react-table";
 
 interface IAsset {
     id: string;
@@ -12,7 +12,7 @@ interface IAsset {
 
 
 const AllAssets: React.FC = () => {
-    const [assets, setAssets] = useState<Array<IAsset | null> | null>([]);
+    const [assets, setAssets] = useState<Array<IAsset>>([]);
 
     useEffect(() => {
         findAllAssets();
@@ -60,13 +60,15 @@ const AllAssets: React.FC = () => {
         []
     )
 
-    const tableInstance = useTable({columns, data})
-
     const findAllAssets = () => {
         getAllAssets().then((data: any) => {
-            const assets: Array<IAsset | null> = data;
-            setAssets(assets);
-            console.log(assets);
+            if (data !== undefined) {
+                const assets: Array<IAsset> = data;
+                setAssets(assets);
+                console.log(assets);
+            } else {
+                console.log("data undafinde");
+            }
         });
         setColumnData();
     }
